@@ -31,8 +31,9 @@ Store,Date,Weekly_Sales,Holiday_Flag,Temperature,Fuel_Price,CPI,Unemployment
 ## Insights
 
 - Total sales, average sales per store-week, top store, store count
-- Weekly/monthly sales trends, top stores, holiday impact, seasonality
-- Scatter plots for fuel price, temperature, CPI and unemployment
+- Weekly, monthly, quarterly and yearly sales trends, selectable directly above the Sales Trend chart; each period sums the filtered weekly records
+- Top stores, holiday impact and monthly seasonality
+- Line charts for fuel price, temperature, CPI and unemployment, sorted by factor value and showing average store-week sales when values repeat
 - Dynamic narrative insights and store/year/month/holiday filters
 
 ## Note
