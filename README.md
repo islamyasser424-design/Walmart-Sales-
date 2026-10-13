@@ -30,12 +30,15 @@ Store,Date,Weekly_Sales,Holiday_Flag,Temperature,Fuel_Price,CPI,Unemployment
 
 ## Insights
 
+- Interactive 3D Flip KPI Cards: hover or tap to flip each KPI card and view its Power BI DAX formula and measurement details.
+- Holiday Impact Donut Chart: interactive donut/doughnut chart with center uplift indicator, percentage breakdown, and metric toggle (Avg Weekly vs Total Revenue).
 - Total sales, average sales per store-week, top store, store count
 - Weekly, monthly, quarterly and yearly sales trends, selectable directly above the Sales Trend chart; each period sums the filtered weekly records
 - Top stores, holiday impact and monthly seasonality
 - Interactive sales decomposition tree: break down total sales by year, quarter, month, store and holiday week in any order. Select a branch to add another level, or use Reset tree to start again. Each node shows its sales total, record count and share of its parent; all dashboard filters apply.
 - Light and dark themes with an accessible toggle. The initial theme follows the device preference, and an explicit choice is remembered in this browser when local storage is available.
 - Dynamic narrative insights and store/year/month/holiday filters
+- Fully mobile-responsive layout built with CSS Grid, Flexbox, SVG icons, and smooth CSS animations. Navigation scrolls horizontally on phones with touch-friendly pills.
 
 
 Quarter and month splits use calendar quarter/month across the selected records. Add a Year level or use the Year filter to inspect one year.

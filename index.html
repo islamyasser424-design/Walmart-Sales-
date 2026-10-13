@@ -18,7 +18,7 @@
   <script defer src="pages.js"></script>
   <style>
     :root{--blue:#0053e2;--deep:#003c9e;--yellow:#ffc220;--ink:#172b4d;--muted:#65758b;--bg:#f4f7fc;--line:#e6ecf5;--white:#fff;--shadow:0 6px 22px rgba(13,50,103,.055)}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:244px;flex-shrink:0;background:var(--white);border-right:1px solid var(--line);padding:30px 18px;display:flex;flex-direction:column;gap:32px}.logo{width:184px;max-width:100%;height:auto}.nav-item{display:flex;align-items:center;gap:11px;background:#edf4ff;color:var(--blue);font-weight:750;border-radius:12px;padding:14px 15px;font-size:14px}.nav-item svg{width:18px;height:18px}.sidefoot{margin-top:auto;color:var(--muted);font-size:12px;line-height:1.65}.main{padding:30px 36px 55px;flex:1;min-width:0;max-width:1800px;margin:auto}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}.eyebrow{color:var(--blue);text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:800}h1{font-size:29px;margin:6px 0 7px;letter-spacing:-1px}h2{font-size:16px;margin:0 0 4px;letter-spacing:-.25px}.subtitle,.sub{font-size:12px;color:var(--muted);line-height:1.65;margin:0}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{background:var(--blue);color:white;border:1px solid var(--blue);padding:11px 17px;border-radius:10px;font-weight:750;font-size:12px;box-shadow:0 4px 12px rgba(0,83,226,.14)}.btn:hover{background:var(--deep)}.btn.secondary{background:white;border-color:var(--line);box-shadow:none;color:var(--ink)}.btn.secondary:hover{background:#f4f7fc}.upload-label{display:flex;align-items:center;gap:8px}.upload-label input{display:none}.status{margin:18px 0 0;padding:12px 15px;background:#e9f2ff;color:#145bbd;border-left:3px solid var(--blue);border-radius:8px;font-size:12px;line-height:1.6}.status.error{background:#fff0ec;border-color:#d95731;color:#9e351c}.filters{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px;margin:22px 0}.filter,.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.filter{padding:13px 15px}.filter label{display:block;font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.65px;margin-bottom:8px}.filter select,.filter input{width:100%;border:none;outline:none;background:white;color:var(--ink);font-size:12px;font-weight:700;min-width:0}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}.card{padding:18px 18px 19px;min-height:126px;position:relative;overflow:hidden}.card:before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue)}.card.yellow:before{background:var(--yellow)}.card .label{font-size:11px;font-weight:750;color:var(--muted)}.card .value{font-size:25px;font-weight:800;letter-spacing:-1px;margin-top:15px;overflow-wrap:anywhere}.card .detail{font-size:10px;color:var(--muted);margin-top:8px}.chart-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px}.panel{padding:19px 21px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}.pill{padding:6px 9px;background:#f0f5ff;color:var(--blue);border-radius:100px;font-size:10px;font-weight:800;white-space:nowrap}.trend-select{border:1px solid var(--line);min-height:36px;padding:6px 10px;font-size:12px;cursor:pointer;flex-shrink:0}.trend-select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}.plot{position:relative;height:268px}.plot.sm{height:244px}.wide{grid-column:span 2}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fbfcff}.insight strong{display:block;font-size:12px;color:var(--deep);margin-bottom:7px}.insight p{font-size:12px;color:#42526b;line-height:1.7;margin:0}.empty{font-size:13px;color:var(--muted);text-align:center;padding:40px}.footer{font-size:11px;color:var(--muted);margin-top:20px}.hidden{display:none!important}@media(max-width:1180px){.sidebar{width:195px}.main{padding:24px}.metrics{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}@media(max-width:780px){.app{display:block}.sidebar{width:auto;padding:15px 20px;flex-direction:row;align-items:center;justify-content:space-between;border-right:0;border-bottom:1px solid var(--line)}.logo{width:145px}.sidefoot{display:none}.main{padding:22px 15px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics{gap:10px}.chart-grid{grid-template-columns:1fr}.wide{grid-column:span 1}.insights{grid-template-columns:1fr}.card{padding:14px}.card .value{font-size:20px}.plot{height:250px}}@media(max-width:420px){h1{font-size:24px}.filters{grid-template-columns:1fr}.card .value{font-size:18px}.sidebar .nav-item{display:none}}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:244px;flex-shrink:0;background:var(--white);border-right:1px solid var(--line);padding:30px 18px;display:flex;flex-direction:column;gap:32px}.logo{width:184px;max-width:100%;height:auto}.nav-item{display:flex;align-items:center;gap:11px;background:#edf4ff;color:var(--blue);font-weight:750;border-radius:12px;padding:14px 15px;font-size:14px}.nav-item svg{width:18px;height:18px}.sidefoot{margin-top:auto;color:var(--muted);font-size:12px;line-height:1.65}.main{padding:30px 36px 55px;flex:1;min-width:0;max-width:1800px;margin:auto}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}.eyebrow{color:var(--blue);text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:800}h1{font-size:29px;margin:6px 0 7px;letter-spacing:-1px}h2{font-size:16px;margin:0 0 4px;letter-spacing:-.25px}.subtitle,.sub{font-size:12px;color:var(--muted);line-height:1.65;margin:0}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{background:var(--blue);color:white;border:1px solid var(--blue);padding:11px 17px;border-radius:10px;font-weight:750;font-size:12px;box-shadow:0 4px 12px rgba(0,83,226,.14)}.btn:hover{background:var(--deep)}.btn.secondary{background:white;border-color:var(--line);box-shadow:none;color:var(--ink)}.btn.secondary:hover{background:#f4f7fc}.upload-label{display:flex;align-items:center;gap:8px}.upload-label input{display:none}.status{margin:18px 0 0;padding:12px 15px;background:#e9f2ff;color:#145bbd;border-left:3px solid var(--blue);border-radius:8px;font-size:12px;line-height:1.6}.status.error{background:#fff0ec;border-color:#d95731;color:#9e351c}.filters{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px;margin:22px 0}.filter,.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.filter{padding:13px 15px}.filter label{display:block;font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.65px;margin-bottom:8px}.filter select,.filter input{width:100%;border:none;outline:none;background:white;color:var(--ink);font-size:12px;font-weight:700;min-width:0}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}.card{padding:18px 18px 19px;min-height:126px;position:relative;overflow:hidden}.card:before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue)}.card.yellow:before{background:var(--yellow)}.card .label{font-size:11px;font-weight:750;color:var(--muted)}.card .value{font-size:25px;font-weight:800;letter-spacing:-1px;margin-top:15px;overflow-wrap:anywhere}.card .detail{font-size:10px;color:var(--muted);margin-top:8px}.chart-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px}.panel{padding:19px 21px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}.pill{padding:6px 9px;background:#f0f5ff;color:var(--blue);border-radius:100px;font-size:10px;font-weight:800;white-space:nowrap}.trend-select{border:1px solid var(--line);min-height:36px;padding:6px 10px;font-size:12px;cursor:pointer;flex-shrink:0}.trend-select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}.plot{position:relative;height:268px}.plot.sm{height:244px}.wide{grid-column:span 2}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fbfcff}.insight strong{display:block;font-size:12px;color:var(--deep);margin-bottom:7px}.insight p{font-size:12px;color:#42526b;line-height:1.7;margin:0}.empty{font-size:13px;color:var(--muted);text-align:center;padding:40px}.footer{font-size:11px;color:var(--muted);margin-top:20px}.hidden{display:none!important}@media(max-width:1180px){.sidebar{width:195px}.main{padding:24px}.metrics{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}@media(max-width:780px){.app{display:block}.sidebar{width:auto;padding:15px 20px;flex-direction:row;align-items:center;justify-content:space-between;border-right:0;border-bottom:1px solid var(--line)}.logo{width:145px}.sidefoot{display:none}.main{padding:22px 15px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics{gap:10px}.chart-grid{grid-template-columns:1fr}.wide{grid-column:span 1}.insights{grid-template-columns:1fr}.card{padding:14px}.card .value{font-size:20px}.plot{height:250px}}@media(max-width:420px){h1{font-size:24px}.filters{grid-template-columns:1fr}.card .value{font-size:18px}}
     :root{color-scheme:light;--soft:#f0f5ff;--subtle:#fbfcff;--hover:#edf4ff;--body-text:#42526b;--button-text:#fff;--chart-grid:#edf1f7;--chart-text:#64748b;--chart-fill:rgba(0,83,226,.10);--status-bg:#e9f2ff;--status-text:#145bbd;--error-bg:#fff0ec;--error-text:#9e351c}
     :root[data-theme="dark"]{color-scheme:dark;--blue:#8ab4ff;--deep:#abcaff;--yellow:#ffc220;--ink:#e7edf7;--muted:#a5b5cd;--bg:#0b1323;--line:#2b3b54;--white:#142136;--shadow:0 6px 22px rgba(0,0,0,.16);--soft:#203653;--subtle:#18273e;--hover:#243b59;--body-text:#b9c8dc;--button-text:#0b1930;--chart-grid:#2b3b54;--chart-text:#a5b5cd;--chart-fill:rgba(138,180,255,.14);--status-bg:#152f4e;--status-text:#b0d1ff;--error-bg:#402424;--error-text:#ffb5a1}
     .filter,.card,.panel,.btn.secondary,.filter select,.filter input{background:var(--white)}
@@ -57,13 +57,13 @@
   <aside class="sidebar">
     <img src="assets/walmart-logo.png" class="logo" alt="Walmart logo" />
     <nav class="page-nav" aria-label="Main navigation">
-      <a class="nav-item active" href="#overview" data-page="overview" aria-current="page"><span class="nav-symbol" aria-hidden="true">▦</span>Sales Overview</a>
-      <a class="nav-item" href="#stores" data-page="stores"><span class="nav-symbol" aria-hidden="true">⌂</span>Store Details</a>
-      <a class="nav-item" href="#compare-stores" data-page="compare-stores"><span class="nav-symbol" aria-hidden="true">⇄</span>Compare Stores</a>
-      <a class="nav-item" href="#periods" data-page="periods"><span class="nav-symbol" aria-hidden="true">◷</span>Period Analysis</a>
-      <a class="nav-item" href="#seasonality" data-page="seasonality"><span class="nav-symbol" aria-hidden="true">☀</span>Seasons &amp; Holidays</a>
-      <a class="nav-item" href="#economics" data-page="economics"><span class="nav-symbol" aria-hidden="true">↗</span>Economic Factors</a>
-      <a class="nav-item" href="#data" data-page="data"><span class="nav-symbol" aria-hidden="true">☷</span>Data Explorer</a>
+      <a class="nav-item active" href="#overview" data-page="overview" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Sales Overview</span></a>
+      <a class="nav-item" href="#stores" data-page="stores"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Store Details</span></a>
+      <a class="nav-item" href="#compare-stores" data-page="compare-stores"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg><span>Compare Stores</span></a>
+      <a class="nav-item" href="#periods" data-page="periods"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Period Analysis</span></a>
+      <a class="nav-item" href="#seasonality" data-page="seasonality"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg><span>Seasons &amp; Holidays</span></a>
+      <a class="nav-item" href="#economics" data-page="economics"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>Economic Factors</span></a>
+      <a class="nav-item" href="#data" data-page="data"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg><span>Data Explorer</span></a>
     </nav>
     <div class="sidefoot">Walmart Sales Intelligence<br />Powered by CSV + Chart.js<br />Static GitHub Pages Dashboard</div>
   </aside>
@@ -80,16 +80,131 @@
       <div class="filter"><label for="holiday">Holiday week</label><select id="holiday"><option value="all">All weeks</option><option value="1">Holiday only</option><option value="0">Non-holiday only</option></select></div>
     </section>
     <div id="page-overview" class="page-view">
-    <section class="metrics">
-      <article class="card"><div class="label">Total Sales</div><div class="value" id="totalSales">—</div><div class="detail" id="salesDetail">Selected period</div></article>
-      <article class="card yellow"><div class="label">Average Weekly Store Sales</div><div class="value" id="avgSales">—</div><div class="detail">Average per store-week record</div></article>
-      <article class="card"><div class="label">Top Performing Store</div><div class="value" id="topStore">—</div><div class="detail">Ranked by total sales</div></article>
-      <article class="card yellow"><div class="label">Active Stores</div><div class="value" id="storeCount">—</div><div class="detail" id="weeksDetail">Stores in selected data</div></article>
+    <section class="metrics" aria-label="Key Performance Indicators with DAX flip cards">
+      <article class="card flip-card" tabindex="0" role="button" aria-label="Total Sales card. Tap or hover to view DAX formula.">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-top-row">
+              <span class="label">Total Sales</span>
+              <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            </div>
+            <div class="value" id="totalSales">—</div>
+            <div class="detail" id="salesDetail">Selected period</div>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+          </div>
+          <div class="flip-card-back">
+            <div class="dax-header">
+              <span>DAX Measure</span>
+              <span class="dax-badge">Power BI</span>
+            </div>
+            <pre class="dax-code"><code>Total Sales = 
+CALCULATE(
+  SUM(Walmart[Weekly_Sales])
+)</code></pre>
+            <div class="dax-detail">Cumulative revenue across selected store-weeks.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Average Weekly Store Sales card. Tap or hover to view DAX formula.">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-top-row">
+              <span class="label">Average Weekly Sales</span>
+              <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div class="value" id="avgSales">—</div>
+            <div class="detail">Average per store-week record</div>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+          </div>
+          <div class="flip-card-back">
+            <div class="dax-header">
+              <span>DAX Measure</span>
+              <span class="dax-badge">Power BI</span>
+            </div>
+            <pre class="dax-code"><code>Avg Weekly Sales = 
+CALCULATE(
+  AVERAGE(Walmart[Weekly_Sales])
+)</code></pre>
+            <div class="dax-detail">Benchmark average store revenue per week.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card flip-card" tabindex="0" role="button" aria-label="Top Performing Store card. Tap or hover to view DAX formula.">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-top-row">
+              <span class="label">Top Performing Store</span>
+              <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="value" id="topStore">—</div>
+            <div class="detail">Ranked by total sales</div>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+          </div>
+          <div class="flip-card-back">
+            <div class="dax-header">
+              <span>DAX Measure</span>
+              <span class="dax-badge">Power BI</span>
+            </div>
+            <pre class="dax-code"><code>Top Store = 
+CALCULATE(
+  SELECTEDVALUE(Walmart[Store]),
+  TOPN(1, ALL(Walmart[Store]), [Total Sales], DESC)
+)</code></pre>
+            <div class="dax-detail">Identifies top ranking store by total revenue.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Active Stores card. Tap or hover to view DAX formula.">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="card-top-row">
+              <span class="label">Active Stores</span>
+              <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="value" id="storeCount">—</div>
+            <div class="detail" id="weeksDetail">Stores in selected data</div>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+          </div>
+          <div class="flip-card-back">
+            <div class="dax-header">
+              <span>DAX Measure</span>
+              <span class="dax-badge">Power BI</span>
+            </div>
+            <pre class="dax-code"><code>Active Stores = 
+DISTINCTCOUNT(Walmart[Store])</code></pre>
+            <div class="dax-detail">Count of unique store locations contributing data.</div>
+          </div>
+        </div>
+      </article>
     </section>
     <section class="chart-grid">
       <div class="panel"><div class="panel-head"><div><h2>Sales Trend</h2><p class="sub">Performance across time</p></div><select id="metric" class="pill trend-select" aria-label="Sales trend period"><option value="week">Weekly</option><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option></select></div><div class="plot"><canvas id="trendChart"></canvas></div></div>
       <div class="panel"><div class="panel-head"><div><h2>Top 10 Stores</h2><p class="sub">By total revenue</p></div><span class="pill">Store ranking</span></div><div class="plot"><canvas id="storeChart"></canvas></div></div>
-      <div class="panel"><div class="panel-head"><div><h2>Holiday Impact</h2><p class="sub">Average sales per store-week</p></div><span class="pill">Fair comparison</span></div><div class="plot sm"><canvas id="holidayChart"></canvas></div></div>
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Holiday Impact</h2>
+            <p class="sub" id="holidaySub">Holiday vs regular sales share</p>
+          </div>
+          <div class="control" style="min-width:auto">
+            <label for="holidayMetricSelect" style="display:none">Metric</label>
+            <select id="holidayMetricSelect" class="pill trend-select" aria-label="Holiday metric selection">
+              <option value="average">Avg Weekly</option>
+              <option value="total">Total Revenue</option>
+            </select>
+          </div>
+        </div>
+        <div class="plot sm donut-plot">
+          <canvas id="holidayChart"></canvas>
+          <div id="holidayDonutCenter" class="donut-center-badge">
+            <span class="donut-center-value" id="holidayUpliftBadge">+7.5%</span>
+            <span class="donut-center-label">Holiday Uplift</span>
+          </div>
+        </div>
+      </div>
       <div class="panel"><div class="panel-head"><div><h2>Monthly Seasonality</h2><p class="sub">Average sales per store-week by month</p></div><span class="pill">Across years</span></div><div class="plot sm"><canvas id="seasonChart"></canvas></div></div>
       <section class="panel wide tree-panel" aria-labelledby="treeTitle">
         <div class="panel-head"><div><h2 id="treeTitle">Sales Decomposition Tree</h2><p class="sub">Explore the contribution of each store, period and holiday week.</p></div><div class="tree-actions"><span class="pill">Analyze: Total sales</span><button id="resetTree" type="button" class="btn secondary">Reset tree</button></div></div>
@@ -451,7 +566,81 @@ window.addEventListener('load', () => {
     draw('trendChart','line',{labels:timeline.map(([k])=>k),datasets:[{label:'Sales',data:timeline.map(([,a])=>sum(a.map(r=>r.Weekly_Sales))),borderColor:BLUE,backgroundColor:palette.fill,fill:true,tension:.26,borderWidth:3,pointRadius:timeline.length>35?0:2}]});
     draw('storeChart','bar',{labels:ranking.slice(0,10).map(r=>'Store '+r.store),datasets:[{label:'Sales',data:ranking.slice(0,10).map(r=>r.total),backgroundColor:BLUE,borderRadius:5}]},{indexAxis:'y',scales:{x:{grid:{color:palette.grid},ticks:{callback:v=>money(v)}},y:{grid:{display:false}}}});
     const holidays=rows.filter(r=>r.Holiday_Flag===1),regular=rows.filter(r=>r.Holiday_Flag===0);
-    draw('holidayChart','bar',{labels:['Regular weeks','Holiday weeks'],datasets:[{label:'Average sales',data:[regular.length?avg(regular.map(r=>r.Weekly_Sales)):null,holidays.length?avg(holidays.map(r=>r.Weekly_Sales)):null],backgroundColor:[BLUE,YELLOW],borderRadius:7,maxBarThickness:95}]});
+    const avgHol=holidays.length?avg(holidays.map(r=>r.Weekly_Sales)):0;
+    const avgReg=regular.length?avg(regular.map(r=>r.Weekly_Sales)):0;
+    const totHol=sum(holidays.map(r=>r.Weekly_Sales));
+    const totReg=sum(regular.map(r=>r.Weekly_Sales));
+    const holidayMode=$('holidayMetricSelect')?$('holidayMetricSelect').value:'average';
+    const isAvg=holidayMode==='average';
+    const holidayData=isAvg?[avgReg,avgHol]:[totReg,totHol];
+    const uplift=avgReg>0?((avgHol/avgReg-1)*100):null;
+
+    if($('holidayUpliftBadge')){
+      $('holidayUpliftBadge').textContent=uplift!==null?(uplift>=0?'+':'')+uplift.toFixed(1)+'%':'—';
+    }
+    if($('holidayDonutCenter')){
+      const labelEl=$('holidayDonutCenter').querySelector('.donut-center-label');
+      if(labelEl)labelEl.textContent=isAvg?'Holiday Uplift':'Holiday Share';
+    }
+
+    draw('holidayChart','doughnut',{
+      labels:['Regular weeks','Holiday weeks'],
+      datasets:[{
+        label:isAvg?'Average sales':'Total sales',
+        data:holidayData,
+        backgroundColor:[BLUE,YELLOW],
+        borderColor:palette.surface,
+        borderWidth:2.5,
+        hoverOffset:8
+      }]
+    },{
+      scales:{},
+      cutout:'68%',
+      plugins:{
+        legend:{
+          display:true,
+          position:'bottom',
+          labels:{
+            color:palette.text,
+            boxWidth:10,
+            padding:10,
+            usePointStyle:true,
+            font:{size:11,weight:'600'},
+            generateLabels:chart=>{
+              const data=chart.data.datasets[0].data;
+              const total=(data[0]||0)+(data[1]||0);
+              return chart.data.labels.map((label,i)=>{
+                const val=data[i]||0;
+                const pctVal=total>0?((val/total)*100).toFixed(1):'0';
+                return {
+                  text:`${label}: ${money(val)} (${pctVal}%)`,
+                  fillStyle:chart.data.datasets[0].backgroundColor[i],
+                  strokeStyle:chart.data.datasets[0].backgroundColor[i],
+                  pointStyle:'circle',
+                  index:i
+                };
+              });
+            }
+          }
+        },
+        tooltip:{
+          backgroundColor:palette.surface,
+          titleColor:palette.ink,
+          bodyColor:palette.ink,
+          borderColor:palette.grid,
+          borderWidth:1,
+          callbacks:{
+            label:context=>{
+              const val=context.parsed;
+              const total=context.dataset.data.reduce((a,b)=>a+(b||0),0);
+              const pctVal=total>0?((val/total)*100).toFixed(1):'0';
+              return ` ${context.label}: ${money(val)} (${pctVal}%)`;
+            }
+          }
+        }
+      }
+    });
+
     const months=group(rows,r=>r.date.getUTCMonth());draw('seasonChart','bar',{labels:MONTHS,datasets:[{label:'Average sales',data:MONTHS.map((_,i)=>months.has(i)?avg(months.get(i).map(r=>r.Weekly_Sales)):null),backgroundColor:MONTHS.map((_,i)=>i===11?YELLOW:BLUE),borderRadius:4}]});
     renderTree(rows);
     const cards=[];if(ranking.length)cards.push(['Top Performing Store',`Store ${ranking[0].store} leads with ${money(ranking[0].total)} in total sales for the selected filters.`]);
@@ -472,7 +661,20 @@ window.addEventListener('load', () => {
   $('resetTree').addEventListener('click',()=>{treeSteps=[{dimension:'year',selected:null}];$('treeScroll').scrollLeft=0;renderTree(filtered(),'tree-split-0')});
   window.addEventListener('resize',scheduleTreeLines);
   if(window.ResizeObserver)new ResizeObserver(scheduleTreeLines).observe($('treeSurface'));
-  ['store','year','month','holiday','metric'].forEach(id=>$(id).addEventListener('change',render));
+  ['store','year','month','holiday','metric','holidayMetricSelect'].forEach(id=>{const el=$(id);if(el)el.addEventListener('change',render)});
+
+  document.querySelectorAll('.flip-card').forEach(card=>{
+    card.addEventListener('click',e=>{
+      if(e.target.closest('button,select,input,a'))return;
+      card.classList.toggle('is-flipped');
+    });
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        card.classList.toggle('is-flipped');
+      }
+    });
+  });
   $('fileInput').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;if(!window.Papa||!window.Chart){setStatus('Chart.js / CSV library could not load. Check internet access.',true);return;}
     Papa.parse(file,{header:true,skipEmptyLines:true,complete:results=>{try{const rows=normalize(results.data);initData(rows)}catch(err){setStatus(err.message,true)}},error:err=>setStatus('Could not read CSV: '+err.message,true)});e.target.value='';});
   $('demoBtn').addEventListener('click',()=>{const data=[];let seed=42;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};for(let week=0;week<112;week++){const date=new Date(Date.UTC(2022,0,7+week*7)),m=date.getUTCMonth();for(let store=1;store<=20;store++){const holiday=[10,11].includes(m)&&[1,3].includes(Math.floor(date.getUTCDate()/7));const base=650000+store*21500;const seasonal=m===11?1.3:m===10?1.17:m===6?1.07:1;data.push({Store:String(store),date,Weekly_Sales:Math.round(base*seasonal*(holiday?1.15:1)*(.86+rand()*.28)),Holiday_Flag:holiday?1:0,Temperature:30+60*rand(),Fuel_Price:2.3+1.4*rand(),CPI:210+15*rand(),Unemployment:4+4*rand()});}}initData(data,true);});
