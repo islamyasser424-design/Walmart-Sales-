@@ -115,18 +115,65 @@
       <article class="panel page-panel"><div class="panel-head"><div><h2>Monthly Store Performance</h2><p class="sub">Chronological totals and record coverage</p></div></div><div id="detailTable" class="table-wrap"></div></article>
     </section>
     <section id="page-compare-stores" class="page-view hidden" hidden aria-label="Compare stores">
-      <article class="panel page-panel"><div class="panel-head"><div><h2>Choose Stores to Compare</h2><p class="sub" id="compareSelectionNote" role="status">Choose up to 4 stores. Year, month and holiday filters apply to every store.</p></div><div class="control"><label for="comparePeriod">Trend period</label><select id="comparePeriod"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option><option value="week">Weekly</option></select></div></div><div class="store-picker" id="compareStoreOptions"></div></article>
+      <article class="panel page-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Choose Stores to Compare</h2>
+            <p class="sub" id="compareSelectionNote" role="status">Select stores to compare. Year, month and holiday filters apply to every store.</p>
+          </div>
+          <div class="compare-actions">
+            <button id="compareSelectAll" type="button" class="btn secondary sm" title="Select all stores">Select All</button>
+            <button id="compareClearAll" type="button" class="btn secondary sm" title="Clear all selected stores">Clear All</button>
+            <button id="compareTop5" type="button" class="btn secondary sm" title="Select top 5 stores by sales">Top 5</button>
+            <input id="compareStoreSearch" type="search" class="compare-search" placeholder="Filter stores…" aria-label="Filter store options" />
+            <div class="control compare-period-control">
+              <label for="comparePeriod">Trend period</label>
+              <select id="comparePeriod">
+                <option value="month">Monthly</option>
+                <option value="quarter">Quarterly</option>
+                <option value="year">Yearly</option>
+                <option value="week">Weekly</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="store-picker" id="compareStoreOptions"></div>
+      </article>
       <div class="page-charts">
-        <article class="panel"><div class="panel-head"><div><h2>Sales Over Time</h2><p class="sub">A separate line for each selected store</p></div></div><div class="plot"><canvas id="compareTrendChart"></canvas></div></article>
-        <article class="panel"><div class="panel-head"><div><h2>Total Sales Comparison</h2><p class="sub">Revenue within the selected filters</p></div></div><div class="plot"><canvas id="compareTotalChart"></canvas></div></article>
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Sales Over Time</h2>
+              <p class="sub" id="compareTrendSub">A separate line for each selected store</p>
+            </div>
+          </div>
+          <div class="plot"><canvas id="compareTrendChart"></canvas></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Total Sales Comparison</h2>
+              <p class="sub" id="compareTotalSub">Revenue within the selected filters</p>
+            </div>
+          </div>
+          <div class="plot"><canvas id="compareTotalChart"></canvas></div>
+        </article>
       </div>
-      <article class="panel page-panel"><div class="panel-head"><div><h2>Store Comparison Summary</h2><p class="sub">Missing periods remain gaps in the chart</p></div></div><div id="compareTable" class="table-wrap"></div></article>
+      <article class="panel page-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Store Comparison Summary</h2>
+            <p class="sub">Performance breakdown of selected stores</p>
+          </div>
+        </div>
+        <div id="compareTable" class="table-wrap"></div>
+      </article>
     </section>
     <section id="page-periods" class="page-view hidden" hidden aria-label="Period analysis">
       <div class="page-toolbar"><div class="control"><label for="periodGrain">Compare periods</label><select id="periodGrain"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option></select></div><p class="sub">Changes compare with the immediately preceding calendar period. Missing periods show no change value.</p></div>
       <div class="metrics">
         <article class="card"><div class="label">Latest Period Sales</div><div class="value" id="periodLatest">—</div><div class="detail" id="periodLatestLabel">Selected period</div></article>
-        <article class="card"><div class="label">Previous Period Sales</div><div class="value" id="periodPrevious">—</div><div class="detail" id="periodPreviousLabel">Previous calendar period</div></article>
+        <article class="card yellow"><div class="label">Previous Period Sales</div><div class="value" id="periodPrevious">—</div><div class="detail" id="periodPreviousLabel">Previous calendar period</div></article>
         <article class="card yellow"><div class="label">Sales Change</div><div class="value" id="periodChange">—</div><div class="detail" id="periodChangeValue">Compared with previous period</div></article>
         <article class="card yellow"><div class="label">Periods in Selection</div><div class="value" id="periodCount">0</div><div class="detail">With available sales records</div></article>
       </div>
@@ -148,7 +195,18 @@
       <article class="panel page-panel"><div class="panel-head"><div><h2>Calendar Month Summary</h2><p class="sub">Across all selected years</p></div></div><div id="seasonTable" class="table-wrap"></div></article>
     </section>
     <section id="page-economics" class="page-view hidden" hidden aria-label="Economic factors">
-      <div class="page-toolbar"><div class="control"><label for="economicFactor">Economic factor</label><select id="economicFactor"><option value="Fuel_Price">Fuel price</option><option value="Temperature">Temperature</option><option value="CPI">CPI</option><option value="Unemployment">Unemployment</option></select></div><p class="sub">Each point is a store-week. Correlation describes an association and does not establish causation.</p></div>
+      <div class="page-toolbar">
+        <div class="control">
+          <label for="economicFactor">Economic factor</label>
+          <select id="economicFactor">
+            <option value="Fuel_Price">Fuel price</option>
+            <option value="Temperature">Temperature</option>
+            <option value="CPI">CPI</option>
+            <option value="Unemployment">Unemployment</option>
+          </select>
+        </div>
+        <p class="sub">Analyze how macroeconomic variables relate to sales performance. Correlation describes association, not causation.</p>
+      </div>
       <div class="metrics">
         <article class="card"><div class="label">Average Factor Value</div><div class="value" id="economicAverage">—</div><div class="detail" id="economicFactorName">Selected factor</div></article>
         <article class="card yellow"><div class="label">Sales Correlation</div><div class="value" id="economicCorrelation">—</div><div class="detail">Pearson r, from −1 to +1</div></article>
@@ -156,10 +214,41 @@
         <article class="card yellow"><div class="label">Average Weekly Sales</div><div class="value" id="economicSales">—</div><div class="detail">For these valid records</div></article>
       </div>
       <div class="page-charts">
-        <article class="panel"><div class="panel-head"><div><h2>Factor vs Weekly Sales</h2><p class="sub">All valid records in the selected filters</p></div></div><div class="plot"><canvas id="economicScatterChart"></canvas></div></article>
-        <article class="panel"><div class="panel-head"><div><h2>Average Sales by Factor Range</h2><p class="sub">Up to 8 equal-width ranges; empty ranges have no value</p></div></div><div class="plot"><canvas id="economicRangeChart"></canvas></div></article>
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2 id="economicTrendTitle">Factor vs Weekly Sales Trend</h2>
+              <p class="sub" id="economicTrendSub">Average sales progression and regression trendline across factor intervals</p>
+            </div>
+            <div class="control" style="min-width:auto">
+              <label for="economicViewMode" style="display:none">View mode</label>
+              <select id="economicViewMode" class="pill trend-select" aria-label="Economic chart view mode">
+                <option value="trend">Trend &amp; Regression</option>
+                <option value="timeline">Dual Timeline (Sales vs Factor)</option>
+              </select>
+            </div>
+          </div>
+          <div class="plot"><canvas id="economicScatterChart"></canvas></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Average Sales by Factor Range</h2>
+              <p class="sub">Up to 8 equal-width ranges; empty ranges have no value</p>
+            </div>
+          </div>
+          <div class="plot"><canvas id="economicRangeChart"></canvas></div>
+        </article>
       </div>
-      <article class="panel page-panel"><div class="panel-head"><div><h2>Factor Range Summary</h2><p class="sub">Sample sizes and average sales for each range</p></div></div><div id="economicTable" class="table-wrap"></div></article>
+      <article class="panel page-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Factor Range Summary</h2>
+            <p class="sub">Sample sizes and average sales for each range</p>
+          </div>
+        </div>
+        <div id="economicTable" class="table-wrap"></div>
+      </article>
     </section>
     <section id="page-data" class="page-view hidden" hidden aria-label="Data explorer">
       <div class="page-toolbar"><div class="page-controls">

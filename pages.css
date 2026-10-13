@@ -16,10 +16,18 @@
 .page-toolbar .sub{max-width:500px}.page-note{margin:0 0 17px;color:var(--muted);font-size:12px;line-height:1.7}
 .page-charts{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;margin-bottom:16px}
 .page-charts .panel{min-width:0}.page-charts .plot{height:300px}
-.page-panel{margin-bottom:16px}.panel .panel-head{flex-wrap:wrap}
-.store-picker{display:flex;flex-wrap:wrap;gap:8px;max-height:142px;overflow:auto;padding:3px;margin-top:12px;scrollbar-width:thin}
-.store-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:11px;font-weight:650;color:var(--muted);background:var(--subtle);cursor:pointer}
-.store-chip.selected{border-color:var(--blue);background:var(--soft);color:var(--blue)}.store-chip input{accent-color:var(--blue);margin:0}
+.compare-actions{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap}
+.compare-actions .btn.sm{padding:7px 11px;font-size:11px;min-height:36px;border-radius:9px}
+.compare-search{min-height:36px;padding:6px 11px;border:1px solid var(--line);border-radius:9px;background:var(--white);color:var(--ink);font-size:11px;max-width:130px;outline:none}
+.compare-search:focus{border-color:var(--blue);outline:2px solid var(--blue);outline-offset:1px}
+.compare-period-control{min-width:110px}
+.compare-period-control label{display:none}
+.compare-period-control select{min-height:36px;padding:6px 10px;border-radius:9px;font-size:12px}
+.store-picker{display:flex;flex-wrap:wrap;gap:8px;max-height:165px;overflow:auto;padding:3px;margin-top:12px;scrollbar-width:thin}
+.store-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:11px;font-weight:650;color:var(--muted);background:var(--subtle);cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.store-chip:hover{background:var(--hover);color:var(--ink)}
+.store-chip.selected{border-color:var(--blue);background:var(--soft);color:var(--blue)}
+.store-chip input{accent-color:var(--blue);margin:0}
 .store-chip:focus-within{outline:2px solid var(--blue);outline-offset:2px}
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:11px;scrollbar-width:thin}
 .data-table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap;text-align:left}

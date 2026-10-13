@@ -48,10 +48,10 @@ The sidebar opens seven views without reloading the dataset. The current page ha
 | --- | --- | --- |
 | Sales Overview | `#overview` | KPIs, trend granularity, store ranking and interactive decomposition tree |
 | Store Details | `#stores` | Store selector, sales trend, rank, best week, benchmark and monthly table |
-| Compare Stores | `#compare-stores` | Up to four stores, separate trend lines, revenue totals and comparison table |
+| Compare Stores | `#compare-stores` | Select all or individual stores, quick Top 5, search filtering, dynamic palette, separate trend lines, revenue totals and comparison table |
 | Period Analysis | `#periods` | Monthly, quarterly or yearly totals, prior-period changes and record coverage |
 | Seasons & Holidays | `#seasonality` | Holiday/regular averages, relative difference and monthly/yearly comparisons |
-| Economic Factors | `#economics` | Factor selector, scatter plot, Pearson correlation and sales by factor range |
+| Economic Factors | `#economics` | Factor selector, binned sales trend with linear regression trendline, dual-axis timeline, Pearson correlation and sales by factor range |
 | Data Explorer | `#data` | Search, sorting, pagination and download of every matching CSV row |
 
 Year, month and holiday filters apply across pages. Store Details and Compare Stores use their own store selectors; the global store choice is retained for the other pages. Page choices and uploaded data stay in memory while navigating; the theme preference is also remembered between visits.
