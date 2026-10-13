@@ -33,8 +33,12 @@ Store,Date,Weekly_Sales,Holiday_Flag,Temperature,Fuel_Price,CPI,Unemployment
 - Total sales, average sales per store-week, top store, store count
 - Weekly, monthly, quarterly and yearly sales trends, selectable directly above the Sales Trend chart; each period sums the filtered weekly records
 - Top stores, holiday impact and monthly seasonality
-- Line charts for fuel price, temperature, CPI and unemployment, sorted by factor value and showing average store-week sales when values repeat
+- Interactive sales decomposition tree: break down total sales by year, quarter, month, store and holiday week in any order. Select a branch to add another level, or use Reset tree to start again. Each node shows its sales total, record count and share of its parent; all dashboard filters apply.
+- Light and dark themes with an accessible toggle. The initial theme follows the device preference, and an explicit choice is remembered in this browser when local storage is available.
 - Dynamic narrative insights and store/year/month/holiday filters
+
+
+Quarter and month splits use calendar quarter/month across the selected records. Add a Year level or use the Year filter to inspect one year.
 
 ## Note
 

@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0071CE" />
   <title>Walmart | Sales Intelligence</title>
+  <script>
+    (()=>{let theme;try{theme=localStorage.getItem('walmart-theme')}catch{}
+      if(theme!=='light'&&theme!=='dark')theme=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      document.documentElement.dataset.theme=theme;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
@@ -12,6 +18,36 @@
   <style>
     :root{--blue:#0053e2;--deep:#003c9e;--yellow:#ffc220;--ink:#172b4d;--muted:#65758b;--bg:#f4f7fc;--line:#e6ecf5;--white:#fff;--shadow:0 6px 22px rgba(13,50,103,.055)}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:244px;flex-shrink:0;background:var(--white);border-right:1px solid var(--line);padding:30px 18px;display:flex;flex-direction:column;gap:32px}.logo{width:184px;max-width:100%;height:auto}.nav-item{display:flex;align-items:center;gap:11px;background:#edf4ff;color:var(--blue);font-weight:750;border-radius:12px;padding:14px 15px;font-size:14px}.nav-item svg{width:18px;height:18px}.sidefoot{margin-top:auto;color:var(--muted);font-size:12px;line-height:1.65}.main{padding:30px 36px 55px;flex:1;min-width:0;max-width:1800px;margin:auto}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}.eyebrow{color:var(--blue);text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:800}h1{font-size:29px;margin:6px 0 7px;letter-spacing:-1px}h2{font-size:16px;margin:0 0 4px;letter-spacing:-.25px}.subtitle,.sub{font-size:12px;color:var(--muted);line-height:1.65;margin:0}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{background:var(--blue);color:white;border:1px solid var(--blue);padding:11px 17px;border-radius:10px;font-weight:750;font-size:12px;box-shadow:0 4px 12px rgba(0,83,226,.14)}.btn:hover{background:var(--deep)}.btn.secondary{background:white;border-color:var(--line);box-shadow:none;color:var(--ink)}.btn.secondary:hover{background:#f4f7fc}.upload-label{display:flex;align-items:center;gap:8px}.upload-label input{display:none}.status{margin:18px 0 0;padding:12px 15px;background:#e9f2ff;color:#145bbd;border-left:3px solid var(--blue);border-radius:8px;font-size:12px;line-height:1.6}.status.error{background:#fff0ec;border-color:#d95731;color:#9e351c}.filters{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px;margin:22px 0}.filter,.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.filter{padding:13px 15px}.filter label{display:block;font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.65px;margin-bottom:8px}.filter select,.filter input{width:100%;border:none;outline:none;background:white;color:var(--ink);font-size:12px;font-weight:700;min-width:0}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}.card{padding:18px 18px 19px;min-height:126px;position:relative;overflow:hidden}.card:before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue)}.card.yellow:before{background:var(--yellow)}.card .label{font-size:11px;font-weight:750;color:var(--muted)}.card .value{font-size:25px;font-weight:800;letter-spacing:-1px;margin-top:15px;overflow-wrap:anywhere}.card .detail{font-size:10px;color:var(--muted);margin-top:8px}.chart-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px}.panel{padding:19px 21px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}.pill{padding:6px 9px;background:#f0f5ff;color:var(--blue);border-radius:100px;font-size:10px;font-weight:800;white-space:nowrap}.trend-select{border:1px solid var(--line);min-height:36px;padding:6px 10px;font-size:12px;cursor:pointer;flex-shrink:0}.trend-select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}.plot{position:relative;height:268px}.plot.sm{height:244px}.wide{grid-column:span 2}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fbfcff}.insight strong{display:block;font-size:12px;color:var(--deep);margin-bottom:7px}.insight p{font-size:12px;color:#42526b;line-height:1.7;margin:0}.empty{font-size:13px;color:var(--muted);text-align:center;padding:40px}.footer{font-size:11px;color:var(--muted);margin-top:20px}.hidden{display:none!important}@media(max-width:1180px){.sidebar{width:195px}.main{padding:24px}.metrics{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}@media(max-width:780px){.app{display:block}.sidebar{width:auto;padding:15px 20px;flex-direction:row;align-items:center;justify-content:space-between;border-right:0;border-bottom:1px solid var(--line)}.logo{width:145px}.sidefoot{display:none}.main{padding:22px 15px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics{gap:10px}.chart-grid{grid-template-columns:1fr}.wide{grid-column:span 1}.insights{grid-template-columns:1fr}.card{padding:14px}.card .value{font-size:20px}.plot{height:250px}}@media(max-width:420px){h1{font-size:24px}.filters{grid-template-columns:1fr}.card .value{font-size:18px}.sidebar .nav-item{display:none}}
+    :root{color-scheme:light;--soft:#f0f5ff;--subtle:#fbfcff;--hover:#edf4ff;--body-text:#42526b;--button-text:#fff;--chart-grid:#edf1f7;--chart-text:#64748b;--chart-fill:rgba(0,83,226,.10);--status-bg:#e9f2ff;--status-text:#145bbd;--error-bg:#fff0ec;--error-text:#9e351c}
+    :root[data-theme="dark"]{color-scheme:dark;--blue:#8ab4ff;--deep:#abcaff;--yellow:#ffc220;--ink:#e7edf7;--muted:#a5b5cd;--bg:#0b1323;--line:#2b3b54;--white:#142136;--shadow:0 6px 22px rgba(0,0,0,.16);--soft:#203653;--subtle:#18273e;--hover:#243b59;--body-text:#b9c8dc;--button-text:#0b1930;--chart-grid:#2b3b54;--chart-text:#a5b5cd;--chart-fill:rgba(138,180,255,.14);--status-bg:#152f4e;--status-text:#b0d1ff;--error-bg:#402424;--error-text:#ffb5a1}
+    .filter,.card,.panel,.btn.secondary,.filter select,.filter input{background:var(--white)}
+    .nav-item,.pill{background:var(--soft)}
+    .btn{color:var(--button-text)}.btn.secondary{color:var(--ink)}.btn.secondary:hover{background:var(--hover)}
+    .status{background:var(--status-bg);color:var(--status-text)}.status.error{background:var(--error-bg);color:var(--error-text)}
+    .insight{background:var(--subtle)}.insight p{color:var(--body-text)}
+    [data-theme="dark"] .logo{background:#fff;padding:9px;border-radius:10px}
+    button:focus-visible,select:focus-visible,.tree-scroll:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+    .theme-toggle{display:inline-flex;align-items:center;gap:8px}.theme-icon{font-size:16px;line-height:1}
+    .tree-panel .panel-head{align-items:center;flex-wrap:wrap}.tree-actions{display:flex;align-items:center;gap:10px}.tree-actions .btn{padding:8px 12px}
+    .tree-intro{margin:0 0 14px;font-size:12px;color:var(--muted);line-height:1.6}
+    .tree-scroll{overflow:auto;padding:6px 4px 14px;scrollbar-color:var(--line) transparent;scrollbar-width:thin}
+    .tree-surface{position:relative;width:max-content;min-width:100%}
+    .tree-lines{position:absolute;inset:0;pointer-events:none;overflow:visible;z-index:0}
+    .tree-lines path{stroke:var(--line);stroke-width:1.5;fill:none}.tree-lines path.active{stroke:var(--blue);stroke-width:2}
+    .tree-columns{position:relative;display:flex;align-items:flex-start;gap:38px;min-height:290px;z-index:1}
+    .tree-column{flex:0 0 208px;width:208px;min-width:0}.tree-column.root-column{padding-top:72px;flex-basis:190px;width:190px}
+    .tree-level-head{min-height:64px;margin-bottom:10px}.tree-level-head label{display:block;margin-bottom:7px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.65px;font-weight:800}
+    .tree-level-head select{width:100%;min-height:36px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--white);color:var(--ink);font-size:12px;font-weight:650;cursor:pointer}
+    .tree-list{display:flex;flex-direction:column;gap:10px;max-height:345px;overflow-y:auto;padding:3px 5px 5px 3px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+    .tree-node{position:relative;display:block;flex-shrink:0;width:100%;text-align:left;border:1px solid var(--line);border-radius:11px;padding:12px;background:var(--white);color:var(--ink);box-shadow:var(--shadow)}
+    button.tree-node:hover{border-color:var(--blue);background:var(--subtle)}.tree-node.selected,.tree-node.root{border-color:var(--blue);background:var(--soft)}
+    .tree-node-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;font-weight:700}.tree-node-title span:first-child{overflow-wrap:anywhere}
+    .tree-node-arrow{color:var(--blue);font-size:17px;line-height:1}.tree-node-value{display:block;margin-top:6px;font-size:21px;font-weight:800;letter-spacing:-.6px}
+    .tree-node-detail{display:block;margin-top:6px;color:var(--muted);font-size:10px;line-height:1.55}.tree-node-bar{display:block;height:4px;margin-top:9px;background:var(--line);border-radius:6px;overflow:hidden}.tree-node-bar span{display:block;height:100%;background:var(--blue);border-radius:6px}
+    .tree-prompt{padding:17px 14px;border:1px dashed var(--line);border-radius:11px;background:var(--subtle);font-size:12px;line-height:1.7;color:var(--muted)}
+    .tree-path{border-top:1px solid var(--line);margin:10px 0 0;padding-top:13px;font-size:11px;color:var(--muted);line-height:1.7;overflow-wrap:anywhere}
+    .tree-empty{width:min(600px,calc(100vw - 85px));padding:45px 15px;color:var(--muted);font-size:13px;line-height:1.7}
+    @media(max-width:780px){.tree-column{flex-basis:185px;width:185px}.tree-column.root-column{flex-basis:170px;width:170px}.tree-columns{gap:30px}.tree-actions{width:100%;justify-content:space-between}.theme-toggle{min-height:39px}}
   </style>
 </head>
 <body>
@@ -24,7 +60,7 @@
   <main class="main">
     <div class="top">
       <div><div class="eyebrow">Retail analytics / performance</div><h1>Sales Overview <span style="color:var(--yellow)">✦</span></h1><p class="subtitle">Track weekly performance, store rankings and the factors shaping sales.</p></div>
-      <div class="actions"><button id="demoBtn" class="btn secondary">Load Demo Data</button><label class="btn upload-label">↥ Upload CSV<input type="file" id="fileInput" accept=".csv,text/csv" /></label></div>
+      <div class="actions"><button id="themeToggle" class="btn secondary theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon" class="theme-icon" aria-hidden="true">☾</span><span id="themeText">Dark mode</span></button><button id="demoBtn" class="btn secondary">Load Demo Data</button><label class="btn upload-label">↥ Upload CSV<input type="file" id="fileInput" accept=".csv,text/csv" /></label></div>
     </div>
     <div id="status" class="status" role="status">Upload a Walmart Sales CSV file to view your actual insights, or choose Load Demo Data for a preview.</div>
     <section class="filters" aria-label="Dashboard filters">
@@ -44,7 +80,12 @@
       <div class="panel"><div class="panel-head"><div><h2>Top 10 Stores</h2><p class="sub">By total revenue</p></div><span class="pill">Store ranking</span></div><div class="plot"><canvas id="storeChart"></canvas></div></div>
       <div class="panel"><div class="panel-head"><div><h2>Holiday Impact</h2><p class="sub">Average sales per store-week</p></div><span class="pill">Fair comparison</span></div><div class="plot sm"><canvas id="holidayChart"></canvas></div></div>
       <div class="panel"><div class="panel-head"><div><h2>Monthly Seasonality</h2><p class="sub">Average sales per store-week by month</p></div><span class="pill">Across years</span></div><div class="plot sm"><canvas id="seasonChart"></canvas></div></div>
-      <div class="panel wide"><div class="panel-head"><div><h2>Economic Factors vs Sales</h2><p class="sub">Average store-week sales at each factor value; correlation does not imply causation</p></div><div class="filter" style="padding:6px 9px"><select id="factor" aria-label="Economic factor"><option value="Fuel_Price">Fuel price</option><option value="Temperature">Temperature</option><option value="CPI">CPI</option><option value="Unemployment">Unemployment</option></select></div></div><div class="plot"><canvas id="factorChart"></canvas></div></div>
+      <section class="panel wide tree-panel" aria-labelledby="treeTitle">
+        <div class="panel-head"><div><h2 id="treeTitle">Sales Decomposition Tree</h2><p class="sub">Explore the contribution of each store, period and holiday week.</p></div><div class="tree-actions"><span class="pill">Analyze: Total sales</span><button id="resetTree" type="button" class="btn secondary">Reset tree</button></div></div>
+        <p class="tree-intro">Choose a breakdown, then select a branch to explore further. Scroll across for more levels. All dashboard filters apply.</p>
+        <div id="treeScroll" class="tree-scroll" tabindex="0" role="region" aria-label="Interactive sales decomposition tree"><div id="treeSurface" class="tree-surface"><svg id="treeLines" class="tree-lines" aria-hidden="true"></svg><div id="decompositionTree" class="tree-columns"></div></div></div>
+        <p id="treePath" class="tree-path" aria-live="polite">Load data to explore sales.</p>
+      </section>
       <div class="panel wide"><div class="panel-head"><div><h2>Key Business Insights</h2><p class="sub">Automatically generated from the filtered records</p></div><span class="pill">Live insights</span></div><div class="insights" id="insights"><div class="empty">Load data to calculate insights.</div></div></div>
     </section>
     <p class="footer">Demo mode uses simulated data, not Walmart actual results. Currency is shown in USD. The dashboard processes uploaded CSV files locally in your browser. Walmart name/logo belong to their respective owner.</p>
@@ -53,7 +94,7 @@
 <script>
 window.addEventListener('load', () => {
   const $ = id => document.getElementById(id);
-  const BLUE='#0053e2', YELLOW='#ffc220', NAVY='#003c9e';
+  const YELLOW='#ffc220';
   const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const REQUIRED=['Store','Date','Weekly_Sales','Holiday_Flag','Temperature','Fuel_Price','CPI','Unemployment'];
   let allRows=[], charts={};
@@ -62,6 +103,131 @@ window.addEventListener('load', () => {
   const avg = a => a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
   const sum = a => a.reduce((s,x)=>s+x,0);
   const group = (rows,fn) => {const m=new Map();rows.forEach(r=>{const k=fn(r);if(!m.has(k))m.set(k,[]);m.get(k).push(r)});return m};
+  const TREE_DIMENSIONS=[
+    {id:'year',label:'Year',key:r=>String(r.date.getUTCFullYear()),name:key=>key},
+    {id:'quarter',label:'Quarter',key:r=>'Q'+(Math.floor(r.date.getUTCMonth()/3)+1),name:key=>key},
+    {id:'month',label:'Month',key:r=>String(r.date.getUTCMonth()),name:key=>MONTHS[Number(key)]},
+    {id:'store',label:'Store',key:r=>r.Store,name:key=>'Store '+key},
+    {id:'holiday',label:'Holiday week',key:r=>String(r.Holiday_Flag),name:key=>key==='1'?'Holiday weeks':'Regular weeks'}
+  ];
+  let treeSteps=[{dimension:'year',selected:null}],treeFrame=null;
+  const fullMoney=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n);
+  function chartPalette(){
+    const style=getComputedStyle(document.documentElement);
+    const color=name=>style.getPropertyValue(name).trim();
+    return {blue:color('--blue'),text:color('--chart-text'),grid:color('--chart-grid'),fill:color('--chart-fill'),surface:color('--white'),ink:color('--ink')};
+  }
+  function syncTheme(){
+    const dark=document.documentElement.dataset.theme==='dark';
+    $('themeToggle').setAttribute('aria-pressed',String(dark));
+    $('themeToggle').setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+    $('themeText').textContent=dark?'Light mode':'Dark mode';
+    $('themeIcon').textContent=dark?'☀':'☾';
+    document.querySelector('meta[name="theme-color"]').setAttribute('content',dark?'#0b1323':'#0071CE');
+  }
+  function treeNode(label,total,count,share,isRoot=false){
+    const node=document.createElement(isRoot?'div':'button');
+    node.className='tree-node'+(isRoot?' root':'');
+    if(!isRoot)node.type='button';
+    node.dataset.total=String(total);
+    const title=document.createElement('span');title.className='tree-node-title';
+    const name=document.createElement('span');name.textContent=label;title.append(name);
+    if(!isRoot){const arrow=document.createElement('span');arrow.className='tree-node-arrow';arrow.textContent='+';arrow.setAttribute('aria-hidden','true');title.append(arrow)}
+    const value=document.createElement('strong');value.className='tree-node-value';value.textContent=money(total);value.title=fullMoney(total);
+    const detail=document.createElement('span');detail.className='tree-node-detail';
+    detail.textContent=(isRoot?'Filtered total':share===null?'Share unavailable':share.toFixed(1)+'% of parent')+' · '+number(count)+' records';
+    node.append(title,value,detail);
+    if(!isRoot){
+      const bar=document.createElement('span');bar.className='tree-node-bar';bar.setAttribute('aria-hidden','true');
+      const fill=document.createElement('span');fill.style.width=Math.min(100,Math.max(0,share??0))+'%';bar.append(fill);node.append(bar);
+      node.setAttribute('aria-label',label+', '+fullMoney(total)+'. '+detail.textContent+'. Select to break down further.');
+    }
+    return node;
+  }
+  function scheduleTreeLines(){
+    if(treeFrame!==null)cancelAnimationFrame(treeFrame);
+    treeFrame=requestAnimationFrame(()=>{treeFrame=null;drawTreeLines()});
+  }
+  function drawTreeLines(){
+    const surface=$('treeSurface'),svg=$('treeLines'),columns=[...$('decompositionTree').children];
+    const base=surface.getBoundingClientRect(),width=surface.scrollWidth,height=surface.offsetHeight;
+    svg.setAttribute('width',width);svg.setAttribute('height',height);svg.setAttribute('viewBox','0 0 '+width+' '+height);svg.replaceChildren();
+    const visible=node=>{
+      const rect=node.getBoundingClientRect(),list=node.closest('.tree-list');
+      if(!list)return rect;
+      const clip=list.getBoundingClientRect(),center=rect.top+rect.height/2;
+      return center>=clip.top&&center<=clip.bottom?rect:null;
+    };
+    for(let i=1;i<columns.length;i++){
+      const source=columns[i-1].querySelector('.tree-node.selected,.tree-node.root');
+      if(!source)continue;
+      const from=visible(source);if(!from)continue;
+      for(const target of columns[i].querySelectorAll('.tree-node,.tree-prompt')){
+        const to=visible(target);if(!to)continue;
+        const x1=from.right-base.left,y1=from.top+from.height/2-base.top,x2=to.left-base.left,y2=to.top+to.height/2-base.top,mid=(x1+x2)/2;
+        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M '+x1+' '+y1+' C '+mid+' '+y1+', '+mid+' '+y2+', '+x2+' '+y2);
+        if(target.classList.contains('selected'))path.setAttribute('class','active');
+        svg.append(path);
+      }
+    }
+  }
+  function renderTree(rows,focusId){
+    const container=$('decompositionTree');
+    const scrollPositions=new Map([...container.querySelectorAll('.tree-list')].map(list=>[list.dataset.path,list.scrollTop]));
+    container.replaceChildren();$('resetTree').disabled=!rows.length;
+    if(!rows.length){
+      const empty=document.createElement('div');empty.className='tree-empty';empty.textContent=allRows.length?'No records match these filters. Adjust the filters to explore the sales tree.':'Load a CSV or demo data to explore the sales tree.';
+      container.append(empty);$('treePath').textContent='No sales records to break down.';scheduleTreeLines();return;
+    }
+    const root=document.createElement('div');root.className='tree-column root-column';root.append(treeNode('Total sales',sum(rows.map(r=>r.Weekly_Sales)),rows.length,100,true));container.append(root);
+    let parentRows=rows;const used=[],breadcrumb=['Total sales'],selections=[];
+    for(let depth=0;depth<treeSteps.length;depth++){
+      const step=treeSteps[depth],available=TREE_DIMENSIONS.filter(d=>!used.includes(d.id));
+      if(!available.length){treeSteps=treeSteps.slice(0,depth);break}
+      const column=document.createElement('div');column.className='tree-column';column.dataset.depth=String(depth);
+      const head=document.createElement('div');head.className='tree-level-head';
+      const label=document.createElement('label');label.htmlFor='tree-split-'+depth;label.textContent=depth===0?'Break down total sales':'Next breakdown';
+      const select=document.createElement('select');select.id=label.htmlFor;select.setAttribute('aria-label','Breakdown level '+(depth+1));
+      select.add(new Option('+ Choose dimension',''));available.forEach(d=>select.add(new Option(d.label,d.id)));
+      select.value=step.dimension||'';
+      select.addEventListener('change',()=>{
+        treeSteps=treeSteps.slice(0,depth+1);treeSteps[depth]={dimension:select.value||null,selected:null};
+        renderTree(filtered(),select.id);
+      });
+      head.append(label,select);column.append(head);container.append(column);
+      const dimension=available.find(d=>d.id===step.dimension);
+      if(!dimension){
+        const prompt=document.createElement('div');prompt.className='tree-prompt';prompt.textContent='Choose a dimension above to split the selected branch.';column.append(prompt);break;
+      }
+      const groups=group(parentRows,dimension.key);
+      const items=[...groups].map(([key,records])=>({key,records,total:sum(records.map(r=>r.Weekly_Sales))})).sort((a,b)=>b.total-a.total||a.key.localeCompare(b.key,undefined,{numeric:true}));
+      if(step.selected!==null&&!groups.has(step.selected)){step.selected=null;treeSteps=treeSteps.slice(0,depth+1)}
+      const parentTotal=sum(parentRows.map(r=>r.Weekly_Sales)),list=document.createElement('div');list.className='tree-list';
+      list.dataset.path=JSON.stringify([...selections,dimension.id]);list.addEventListener('scroll',scheduleTreeLines,{passive:true});
+      items.forEach((item,index)=>{
+        const share=parentTotal===0?null:item.total/parentTotal*100,node=treeNode(dimension.name(item.key),item.total,item.records.length,share);
+        node.id='tree-node-'+depth+'-'+index;node.dataset.key=item.key;node.setAttribute('aria-pressed',String(step.selected===item.key));
+        if(step.selected===item.key)node.classList.add('selected');
+        node.addEventListener('click',()=>{
+          treeSteps=treeSteps.slice(0,depth+1);treeSteps[depth].selected=item.key;
+          const hasNext=depth+1<TREE_DIMENSIONS.length;
+          if(hasNext)treeSteps.push({dimension:null,selected:null});
+          renderTree(filtered(),hasNext?'tree-split-'+(depth+1):node.id);
+        });
+        list.append(node);
+      });
+      column.append(list);list.scrollTop=scrollPositions.get(list.dataset.path)||0;
+      used.push(dimension.id);
+      if(step.selected===null)break;
+      breadcrumb.push(dimension.label+': '+dimension.name(step.selected));selections.push([dimension.id,step.selected]);parentRows=groups.get(step.selected);
+    }
+    $('treePath').textContent=breadcrumb.join(' → ')+' · '+fullMoney(sum(parentRows.map(r=>r.Weekly_Sales)))+' in this selection';
+    scheduleTreeLines();
+    if(focusId){
+      const target=$(focusId);if(target){target.focus({preventScroll:true});const scroll=$('treeScroll'),rect=target.getBoundingClientRect(),view=scroll.getBoundingClientRect();if(rect.right>view.right)scroll.scrollLeft+=rect.right-view.right+12;else if(rect.left<view.left)scroll.scrollLeft-=view.left-rect.left+12;}
+    }
+  }
   function periodKey(date,period){
     const year=date.getUTCFullYear();
     if(period==='year')return String(year);
@@ -92,33 +258,45 @@ window.addEventListener('load', () => {
   }
   function setStatus(message,error=false){$('status').textContent=message;$('status').classList.toggle('error',error)}
   function setOptions(id,values,label){const el=$(id);el.replaceChildren();const opt=new Option(label,'all');el.add(opt);values.forEach(v=>el.add(new Option(id==='month'?MONTHS[Number(v)-1]:id==='store'?'Store '+v:v,String(v))));}
-  function initData(rows,isDemo=false){allRows=rows;const stores=[...new Set(rows.map(r=>r.Store))].sort((a,b)=>Number(a)-Number(b));const years=[...new Set(rows.map(r=>r.date.getUTCFullYear()))].sort();
+  function initData(rows,isDemo=false){allRows=rows;treeSteps=[{dimension:'year',selected:null}];const stores=[...new Set(rows.map(r=>r.Store))].sort((a,b)=>Number(a)-Number(b));const years=[...new Set(rows.map(r=>r.date.getUTCFullYear()))].sort();
     setOptions('store',stores,'All stores');setOptions('year',years,'All years');setOptions('month',Array.from({length:12},(_,i)=>i+1),'All months');$('holiday').value='all';$('metric').value='week';
     setStatus(`${isDemo?'DEMO / SIMULATED DATA — ':''}${number(rows.length)} valid store-week records loaded${isDemo?' (not real Walmart results)':''}. Filters and charts are ready.`);render();}
   function filtered(){return allRows.filter(r=>($('store').value==='all'||r.Store===$('store').value)&&($('year').value==='all'||r.date.getUTCFullYear()===Number($('year').value))&&($('month').value==='all'||r.date.getUTCMonth()+1===Number($('month').value))&&($('holiday').value==='all'||r.Holiday_Flag===Number($('holiday').value)));}
-  function draw(id,type,data,options={}){if(charts[id])charts[id].destroy();charts[id]=new Chart($(id),{type,data,options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:context=>{const n=context.parsed.y??context.parsed.x;return `${context.dataset.label||'Sales'}: ${money(n)}`}}}},scales:{x:{grid:{display:false},ticks:{color:'#64748b',maxRotation:0,autoSkip:true,maxTicksLimit:10}},y:{grid:{color:'#edf1f7'},ticks:{color:'#64748b',callback:v=>money(v)}}},...options}});}
-  function render(){const rows=filtered(), storeGroup=group(rows,r=>r.Store), distinctWeeks=new Set(rows.map(r=>r.date.toISOString().slice(0,10))).size;
+  function draw(id,type,data,options={}){
+    const palette=chartPalette();Chart.defaults.color=palette.text;Chart.defaults.borderColor=palette.grid;
+    if(charts[id])charts[id].destroy();
+    charts[id]=new Chart($(id),{type,data,options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:palette.surface,titleColor:palette.ink,bodyColor:palette.ink,borderColor:palette.grid,borderWidth:1,callbacks:{label:context=>{const n=context.parsed.y??context.parsed.x;return `${context.dataset.label||'Sales'}: ${money(n)}`}}}},
+      scales:{x:{grid:{display:false},ticks:{color:palette.text,maxRotation:0,autoSkip:true,maxTicksLimit:10}},y:{grid:{color:palette.grid},ticks:{color:palette.text,callback:v=>money(v)}}},...options}});
+  }
+  function render(){const palette=chartPalette(),BLUE=palette.blue;const rows=filtered(), storeGroup=group(rows,r=>r.Store), distinctWeeks=new Set(rows.map(r=>r.date.toISOString().slice(0,10))).size;
     $('totalSales').textContent=rows.length?money(sum(rows.map(r=>r.Weekly_Sales))):'—';$('avgSales').textContent=rows.length?money(avg(rows.map(r=>r.Weekly_Sales))):'—';$('storeCount').textContent=number(storeGroup.size);$('weeksDetail').textContent=`${distinctWeeks} distinct weeks selected`;
     const ranking=[...storeGroup].map(([s,a])=>({store:s,total:sum(a.map(r=>r.Weekly_Sales))})).sort((a,b)=>b.total-a.total);
     $('topStore').textContent=ranking.length?'Store '+ranking[0].store:'—';$('salesDetail').textContent=`${number(rows.length)} store-week records`;
     const period=$('metric').value;
     const buckets=group(rows,r=>periodKey(r.date,period));const timeline=[...buckets].sort(([a],[b])=>a.localeCompare(b));
-    draw('trendChart','line',{labels:timeline.map(([k])=>k),datasets:[{label:'Sales',data:timeline.map(([,a])=>sum(a.map(r=>r.Weekly_Sales))),borderColor:BLUE,backgroundColor:'rgba(0,83,226,.10)',fill:true,tension:.26,borderWidth:3,pointRadius:timeline.length>35?0:2}]});
-    draw('storeChart','bar',{labels:ranking.slice(0,10).map(r=>'Store '+r.store),datasets:[{label:'Sales',data:ranking.slice(0,10).map(r=>r.total),backgroundColor:BLUE,borderRadius:5}]},{indexAxis:'y',scales:{x:{grid:{color:'#edf1f7'},ticks:{callback:v=>money(v)}},y:{grid:{display:false}}}});
+    draw('trendChart','line',{labels:timeline.map(([k])=>k),datasets:[{label:'Sales',data:timeline.map(([,a])=>sum(a.map(r=>r.Weekly_Sales))),borderColor:BLUE,backgroundColor:palette.fill,fill:true,tension:.26,borderWidth:3,pointRadius:timeline.length>35?0:2}]});
+    draw('storeChart','bar',{labels:ranking.slice(0,10).map(r=>'Store '+r.store),datasets:[{label:'Sales',data:ranking.slice(0,10).map(r=>r.total),backgroundColor:BLUE,borderRadius:5}]},{indexAxis:'y',scales:{x:{grid:{color:palette.grid},ticks:{callback:v=>money(v)}},y:{grid:{display:false}}}});
     const holidays=rows.filter(r=>r.Holiday_Flag===1),regular=rows.filter(r=>r.Holiday_Flag===0);
     draw('holidayChart','bar',{labels:['Regular weeks','Holiday weeks'],datasets:[{label:'Average sales',data:[regular.length?avg(regular.map(r=>r.Weekly_Sales)):null,holidays.length?avg(holidays.map(r=>r.Weekly_Sales)):null],backgroundColor:[BLUE,YELLOW],borderRadius:7,maxBarThickness:95}]});
     const months=group(rows,r=>r.date.getUTCMonth());draw('seasonChart','bar',{labels:MONTHS,datasets:[{label:'Average sales',data:MONTHS.map((_,i)=>months.has(i)?avg(months.get(i).map(r=>r.Weekly_Sales)):null),backgroundColor:MONTHS.map((_,i)=>i===11?YELLOW:BLUE),borderRadius:4}]});
-    const factor=$('factor').value;
-    const factorGroups=group(rows.filter(r=>Number.isFinite(r[factor])),r=>r[factor]);
-    const factorPoints=[...factorGroups].sort(([a],[b])=>a-b).map(([value,records])=>({x:value,y:avg(records.map(r=>r.Weekly_Sales))}));
-    draw('factorChart','line',{datasets:[{label:'Average weekly store sales',data:factorPoints,borderColor:BLUE,backgroundColor:BLUE,fill:false,tension:0,borderWidth:2,pointRadius:factorPoints.length>60?0:2,pointHoverRadius:5}]},{scales:{x:{type:'linear',title:{display:true,text:$('factor').selectedOptions[0].textContent,color:'#64748b'},grid:{color:'#edf1f7'},ticks:{color:'#64748b'}},y:{title:{display:true,text:'Average weekly store sales (USD)',color:'#64748b'},grid:{color:'#edf1f7'},ticks:{callback:v=>money(v)}}}});
+    renderTree(rows);
     const cards=[];if(ranking.length)cards.push(['Top Performing Store',`Store ${ranking[0].store} leads with ${money(ranking[0].total)} in total sales for the selected filters.`]);
     if(holidays.length&&regular.length){const a=avg(holidays.map(r=>r.Weekly_Sales)),b=avg(regular.map(r=>r.Weekly_Sales)),p=b?(a/b-1)*100:null;cards.push(['Holiday Sales Uplift',p===null?'Cannot calculate change when regular-week average is zero.':`Holiday weeks averaged ${money(a)} vs ${money(b)} for regular weeks (${p>=0?'+':''}${p.toFixed(1)}%).`]);}else cards.push(['Holiday Comparison','Select a period with both holiday and regular weeks to compare average sales.']);
     if(months.size){const ordered=[...months].map(([m,a])=>({m,mean:avg(a.map(r=>r.Weekly_Sales))})).sort((a,b)=>b.mean-a.mean);cards.push(['Strongest Calendar Month',`${MONTHS[ordered[0].m]} has the highest average store-week sales (${money(ordered[0].mean)}) in this selection.`]);}
     if(!cards.length)cards.push(['No records','Adjust the filters or upload a different CSV to explore insights.']);
     $('insights').replaceChildren(...cards.map(([title,desc])=>{const div=document.createElement('div');div.className='insight';const strong=document.createElement('strong');strong.textContent=title;const p=document.createElement('p');p.textContent=desc;div.append(strong,p);return div}));
   }
-  ['store','year','month','holiday','metric','factor'].forEach(id=>$(id).addEventListener('change',render));
+  syncTheme();renderTree([]);
+  $('themeToggle').addEventListener('click',()=>{
+    const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;
+    try{localStorage.setItem('walmart-theme',theme)}catch{}
+    syncTheme();if(window.Chart&&Object.keys(charts).length)render();
+  });
+  $('resetTree').addEventListener('click',()=>{treeSteps=[{dimension:'year',selected:null}];$('treeScroll').scrollLeft=0;renderTree(filtered(),'tree-split-0')});
+  window.addEventListener('resize',scheduleTreeLines);
+  if(window.ResizeObserver)new ResizeObserver(scheduleTreeLines).observe($('treeSurface'));
+  ['store','year','month','holiday','metric'].forEach(id=>$(id).addEventListener('change',render));
   $('fileInput').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;if(!window.Papa||!window.Chart){setStatus('Chart.js / CSV library could not load. Check internet access.',true);return;}
     Papa.parse(file,{header:true,skipEmptyLines:true,complete:results=>{try{const rows=normalize(results.data);initData(rows)}catch(err){setStatus(err.message,true)}},error:err=>setStatus('Could not read CSV: '+err.message,true)});e.target.value='';});
   $('demoBtn').addEventListener('click',()=>{const data=[];let seed=42;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};for(let week=0;week<112;week++){const date=new Date(Date.UTC(2022,0,7+week*7)),m=date.getUTCMonth();for(let store=1;store<=20;store++){const holiday=[10,11].includes(m)&&[1,3].includes(Math.floor(date.getUTCDate()/7));const base=650000+store*21500;const seasonal=m===11?1.3:m===10?1.17:m===6?1.07:1;data.push({Store:String(store),date,Weekly_Sales:Math.round(base*seasonal*(holiday?1.15:1)*(.86+rand()*.28)),Holiday_Flag:holiday?1:0,Temperature:30+60*rand(),Fuel_Price:2.3+1.4*rand(),CPI:210+15*rand(),Unemployment:4+4*rand()});}}initData(data,true);});
