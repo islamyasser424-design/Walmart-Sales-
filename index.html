@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.5.2/papaparse.min.js"></script>
+  <script defer src="pages.js"></script>
   <style>
     :root{--blue:#0053e2;--deep:#003c9e;--yellow:#ffc220;--ink:#172b4d;--muted:#65758b;--bg:#f4f7fc;--line:#e6ecf5;--white:#fff;--shadow:0 6px 22px rgba(13,50,103,.055)}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:244px;flex-shrink:0;background:var(--white);border-right:1px solid var(--line);padding:30px 18px;display:flex;flex-direction:column;gap:32px}.logo{width:184px;max-width:100%;height:auto}.nav-item{display:flex;align-items:center;gap:11px;background:#edf4ff;color:var(--blue);font-weight:750;border-radius:12px;padding:14px 15px;font-size:14px}.nav-item svg{width:18px;height:18px}.sidefoot{margin-top:auto;color:var(--muted);font-size:12px;line-height:1.65}.main{padding:30px 36px 55px;flex:1;min-width:0;max-width:1800px;margin:auto}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}.eyebrow{color:var(--blue);text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:800}h1{font-size:29px;margin:6px 0 7px;letter-spacing:-1px}h2{font-size:16px;margin:0 0 4px;letter-spacing:-.25px}.subtitle,.sub{font-size:12px;color:var(--muted);line-height:1.65;margin:0}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{background:var(--blue);color:white;border:1px solid var(--blue);padding:11px 17px;border-radius:10px;font-weight:750;font-size:12px;box-shadow:0 4px 12px rgba(0,83,226,.14)}.btn:hover{background:var(--deep)}.btn.secondary{background:white;border-color:var(--line);box-shadow:none;color:var(--ink)}.btn.secondary:hover{background:#f4f7fc}.upload-label{display:flex;align-items:center;gap:8px}.upload-label input{display:none}.status{margin:18px 0 0;padding:12px 15px;background:#e9f2ff;color:#145bbd;border-left:3px solid var(--blue);border-radius:8px;font-size:12px;line-height:1.6}.status.error{background:#fff0ec;border-color:#d95731;color:#9e351c}.filters{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px;margin:22px 0}.filter,.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.filter{padding:13px 15px}.filter label{display:block;font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.65px;margin-bottom:8px}.filter select,.filter input{width:100%;border:none;outline:none;background:white;color:var(--ink);font-size:12px;font-weight:700;min-width:0}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}.card{padding:18px 18px 19px;min-height:126px;position:relative;overflow:hidden}.card:before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue)}.card.yellow:before{background:var(--yellow)}.card .label{font-size:11px;font-weight:750;color:var(--muted)}.card .value{font-size:25px;font-weight:800;letter-spacing:-1px;margin-top:15px;overflow-wrap:anywhere}.card .detail{font-size:10px;color:var(--muted);margin-top:8px}.chart-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px}.panel{padding:19px 21px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}.pill{padding:6px 9px;background:#f0f5ff;color:var(--blue);border-radius:100px;font-size:10px;font-weight:800;white-space:nowrap}.trend-select{border:1px solid var(--line);min-height:36px;padding:6px 10px;font-size:12px;cursor:pointer;flex-shrink:0}.trend-select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}.plot{position:relative;height:268px}.plot.sm{height:244px}.wide{grid-column:span 2}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fbfcff}.insight strong{display:block;font-size:12px;color:var(--deep);margin-bottom:7px}.insight p{font-size:12px;color:#42526b;line-height:1.7;margin:0}.empty{font-size:13px;color:var(--muted);text-align:center;padding:40px}.footer{font-size:11px;color:var(--muted);margin-top:20px}.hidden{display:none!important}@media(max-width:1180px){.sidebar{width:195px}.main{padding:24px}.metrics{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}@media(max-width:780px){.app{display:block}.sidebar{width:auto;padding:15px 20px;flex-direction:row;align-items:center;justify-content:space-between;border-right:0;border-bottom:1px solid var(--line)}.logo{width:145px}.sidefoot{display:none}.main{padding:22px 15px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics{gap:10px}.chart-grid{grid-template-columns:1fr}.wide{grid-column:span 1}.insights{grid-template-columns:1fr}.card{padding:14px}.card .value{font-size:20px}.plot{height:250px}}@media(max-width:420px){h1{font-size:24px}.filters{grid-template-columns:1fr}.card .value{font-size:18px}.sidebar .nav-item{display:none}}
@@ -49,26 +50,36 @@
     .tree-empty{width:min(600px,calc(100vw - 85px));padding:45px 15px;color:var(--muted);font-size:13px;line-height:1.7}
     @media(max-width:780px){.tree-column{flex-basis:185px;width:185px}.tree-column.root-column{flex-basis:170px;width:170px}.tree-columns{gap:30px}.tree-actions{width:100%;justify-content:space-between}.theme-toggle{min-height:39px}}
   </style>
+  <link rel="stylesheet" href="pages.css" />
 </head>
 <body>
 <div class="app">
   <aside class="sidebar">
     <img src="assets/walmart-logo.png" class="logo" alt="Walmart logo" />
-    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg> Sales Overview</div>
+    <nav class="page-nav" aria-label="Main navigation">
+      <a class="nav-item active" href="#overview" data-page="overview" aria-current="page"><span class="nav-symbol" aria-hidden="true">▦</span>Sales Overview</a>
+      <a class="nav-item" href="#stores" data-page="stores"><span class="nav-symbol" aria-hidden="true">⌂</span>Store Details</a>
+      <a class="nav-item" href="#compare-stores" data-page="compare-stores"><span class="nav-symbol" aria-hidden="true">⇄</span>Compare Stores</a>
+      <a class="nav-item" href="#periods" data-page="periods"><span class="nav-symbol" aria-hidden="true">◷</span>Period Analysis</a>
+      <a class="nav-item" href="#seasonality" data-page="seasonality"><span class="nav-symbol" aria-hidden="true">☀</span>Seasons &amp; Holidays</a>
+      <a class="nav-item" href="#economics" data-page="economics"><span class="nav-symbol" aria-hidden="true">↗</span>Economic Factors</a>
+      <a class="nav-item" href="#data" data-page="data"><span class="nav-symbol" aria-hidden="true">☷</span>Data Explorer</a>
+    </nav>
     <div class="sidefoot">Walmart Sales Intelligence<br />Powered by CSV + Chart.js<br />Static GitHub Pages Dashboard</div>
   </aside>
   <main class="main">
     <div class="top">
-      <div><div class="eyebrow">Retail analytics / performance</div><h1>Sales Overview <span style="color:var(--yellow)">✦</span></h1><p class="subtitle">Track weekly performance, store rankings and the factors shaping sales.</p></div>
+      <div><div class="eyebrow">Retail analytics / performance</div><h1 id="pageHeading" class="page-title" tabindex="-1"><span id="pageTitle">Sales Overview</span> <span style="color:var(--yellow)">✦</span></h1><p class="subtitle" id="pageSubtitle">Track weekly performance, store rankings and the factors shaping sales.</p></div>
       <div class="actions"><button id="themeToggle" class="btn secondary theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon" class="theme-icon" aria-hidden="true">☾</span><span id="themeText">Dark mode</span></button><button id="demoBtn" class="btn secondary">Load Demo Data</button><label class="btn upload-label">↥ Upload CSV<input type="file" id="fileInput" accept=".csv,text/csv" /></label></div>
     </div>
     <div id="status" class="status" role="status">Upload a Walmart Sales CSV file to view your actual insights, or choose Load Demo Data for a preview.</div>
-    <section class="filters" aria-label="Dashboard filters">
-      <div class="filter"><label for="store">Store</label><select id="store"><option value="all">All stores</option></select></div>
+    <section class="filters" id="globalFilters" aria-label="Dashboard filters">
+      <div class="filter" id="globalStoreFilter"><label for="store">Store</label><select id="store"><option value="all">All stores</option></select></div>
       <div class="filter"><label for="year">Year</label><select id="year"><option value="all">All years</option></select></div>
       <div class="filter"><label for="month">Month</label><select id="month"><option value="all">All months</option></select></div>
       <div class="filter"><label for="holiday">Holiday week</label><select id="holiday"><option value="all">All weeks</option><option value="1">Holiday only</option><option value="0">Non-holiday only</option></select></div>
     </section>
+    <div id="page-overview" class="page-view">
     <section class="metrics">
       <article class="card"><div class="label">Total Sales</div><div class="value" id="totalSales">—</div><div class="detail" id="salesDetail">Selected period</div></article>
       <article class="card yellow"><div class="label">Average Weekly Store Sales</div><div class="value" id="avgSales">—</div><div class="detail">Average per store-week record</div></article>
@@ -88,6 +99,77 @@
       </section>
       <div class="panel wide"><div class="panel-head"><div><h2>Key Business Insights</h2><p class="sub">Automatically generated from the filtered records</p></div><span class="pill">Live insights</span></div><div class="insights" id="insights"><div class="empty">Load data to calculate insights.</div></div></div>
     </section>
+    </div>
+    <section id="page-stores" class="page-view hidden" hidden aria-label="Store details">
+      <div class="page-toolbar"><div class="page-controls"><div class="control"><label for="focusStore">Choose a store</label><select id="focusStore"></select></div><div class="control"><label for="storePeriod">Trend period</label><select id="storePeriod"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option><option value="week">Weekly</option></select></div></div><p class="sub">Year, month and holiday filters apply. The store is selected here.</p></div>
+      <div class="metrics">
+        <article class="card"><div class="label">Store Sales</div><div class="value" id="detailTotal">—</div><div class="detail" id="detailRecords">Selected records</div></article>
+        <article class="card yellow"><div class="label">Average Weekly Sales</div><div class="value" id="detailAverage">—</div><div class="detail">Per store-week record</div></article>
+        <article class="card"><div class="label">Store Rank</div><div class="value" id="detailRank">—</div><div class="detail" id="detailRankNote">Among stores in the same period</div></article>
+        <article class="card yellow"><div class="label">Best Week</div><div class="value" id="detailPeak">—</div><div class="detail" id="detailPeakDate">Highest weekly sales</div></article>
+      </div>
+      <div class="page-charts">
+        <article class="panel"><div class="panel-head"><div><h2>Store Sales Trend</h2><p class="sub">Total sales by selected period</p></div></div><div class="plot"><canvas id="detailTrendChart"></canvas></div></article>
+        <article class="panel"><div class="panel-head"><div><h2>Weekly Sales Benchmark</h2><p class="sub">Selected store vs all stores in the same period</p></div></div><div class="plot"><canvas id="detailBenchmarkChart"></canvas></div></article>
+      </div>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Monthly Store Performance</h2><p class="sub">Chronological totals and record coverage</p></div></div><div id="detailTable" class="table-wrap"></div></article>
+    </section>
+    <section id="page-compare-stores" class="page-view hidden" hidden aria-label="Compare stores">
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Choose Stores to Compare</h2><p class="sub" id="compareSelectionNote" role="status">Choose up to 4 stores. Year, month and holiday filters apply to every store.</p></div><div class="control"><label for="comparePeriod">Trend period</label><select id="comparePeriod"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option><option value="week">Weekly</option></select></div></div><div class="store-picker" id="compareStoreOptions"></div></article>
+      <div class="page-charts">
+        <article class="panel"><div class="panel-head"><div><h2>Sales Over Time</h2><p class="sub">A separate line for each selected store</p></div></div><div class="plot"><canvas id="compareTrendChart"></canvas></div></article>
+        <article class="panel"><div class="panel-head"><div><h2>Total Sales Comparison</h2><p class="sub">Revenue within the selected filters</p></div></div><div class="plot"><canvas id="compareTotalChart"></canvas></div></article>
+      </div>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Store Comparison Summary</h2><p class="sub">Missing periods remain gaps in the chart</p></div></div><div id="compareTable" class="table-wrap"></div></article>
+    </section>
+    <section id="page-periods" class="page-view hidden" hidden aria-label="Period analysis">
+      <div class="page-toolbar"><div class="control"><label for="periodGrain">Compare periods</label><select id="periodGrain"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option></select></div><p class="sub">Changes compare with the immediately preceding calendar period. Missing periods show no change value.</p></div>
+      <div class="metrics">
+        <article class="card"><div class="label">Latest Period Sales</div><div class="value" id="periodLatest">—</div><div class="detail" id="periodLatestLabel">Selected period</div></article>
+        <article class="card"><div class="label">Previous Period Sales</div><div class="value" id="periodPrevious">—</div><div class="detail" id="periodPreviousLabel">Previous calendar period</div></article>
+        <article class="card yellow"><div class="label">Sales Change</div><div class="value" id="periodChange">—</div><div class="detail" id="periodChangeValue">Compared with previous period</div></article>
+        <article class="card yellow"><div class="label">Periods in Selection</div><div class="value" id="periodCount">0</div><div class="detail">With available sales records</div></article>
+      </div>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Sales by Period</h2><p class="sub">Totals reflect available records; partial periods may contain fewer weeks.</p></div></div><div class="plot"><canvas id="periodChart"></canvas></div></article>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Period Comparison</h2><p class="sub">Sales, growth and coverage for every selected period</p></div></div><div id="periodTable" class="table-wrap"></div></article>
+    </section>
+    <section id="page-seasonality" class="page-view hidden" hidden aria-label="Seasonality and holidays">
+      <p id="seasonNote" class="page-note">Compare average store-week sales to account for different numbers of records.</p>
+      <div class="metrics">
+        <article class="card yellow"><div class="label">Holiday Weekly Average</div><div class="value" id="seasonHoliday">—</div><div class="detail" id="seasonHolidayCount">Holiday records</div></article>
+        <article class="card"><div class="label">Regular Weekly Average</div><div class="value" id="seasonRegular">—</div><div class="detail" id="seasonRegularCount">Regular records</div></article>
+        <article class="card yellow"><div class="label">Holiday Difference</div><div class="value" id="seasonUplift">—</div><div class="detail">Relative to regular-week average</div></article>
+        <article class="card"><div class="label">Strongest Month</div><div class="value" id="seasonBest">—</div><div class="detail" id="seasonBestValue">By average store-week sales</div></article>
+      </div>
+      <div class="page-charts">
+        <article class="panel"><div class="panel-head"><div><h2>Monthly Sales Pattern</h2><p class="sub">Average store-week sales by calendar month</p></div></div><div class="plot"><canvas id="seasonMonthlyChart"></canvas></div></article>
+        <article class="panel"><div class="panel-head"><div><h2>Holiday Comparison by Year</h2><p class="sub">Average sales per store-week</p></div></div><div class="plot"><canvas id="seasonYearChart"></canvas></div></article>
+      </div>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Calendar Month Summary</h2><p class="sub">Across all selected years</p></div></div><div id="seasonTable" class="table-wrap"></div></article>
+    </section>
+    <section id="page-economics" class="page-view hidden" hidden aria-label="Economic factors">
+      <div class="page-toolbar"><div class="control"><label for="economicFactor">Economic factor</label><select id="economicFactor"><option value="Fuel_Price">Fuel price</option><option value="Temperature">Temperature</option><option value="CPI">CPI</option><option value="Unemployment">Unemployment</option></select></div><p class="sub">Each point is a store-week. Correlation describes an association and does not establish causation.</p></div>
+      <div class="metrics">
+        <article class="card"><div class="label">Average Factor Value</div><div class="value" id="economicAverage">—</div><div class="detail" id="economicFactorName">Selected factor</div></article>
+        <article class="card yellow"><div class="label">Sales Correlation</div><div class="value" id="economicCorrelation">—</div><div class="detail">Pearson r, from −1 to +1</div></article>
+        <article class="card"><div class="label">Valid Records</div><div class="value" id="economicRecords">0</div><div class="detail">With a numeric factor value</div></article>
+        <article class="card yellow"><div class="label">Average Weekly Sales</div><div class="value" id="economicSales">—</div><div class="detail">For these valid records</div></article>
+      </div>
+      <div class="page-charts">
+        <article class="panel"><div class="panel-head"><div><h2>Factor vs Weekly Sales</h2><p class="sub">All valid records in the selected filters</p></div></div><div class="plot"><canvas id="economicScatterChart"></canvas></div></article>
+        <article class="panel"><div class="panel-head"><div><h2>Average Sales by Factor Range</h2><p class="sub">Up to 8 equal-width ranges; empty ranges have no value</p></div></div><div class="plot"><canvas id="economicRangeChart"></canvas></div></article>
+      </div>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Factor Range Summary</h2><p class="sub">Sample sizes and average sales for each range</p></div></div><div id="economicTable" class="table-wrap"></div></article>
+    </section>
+    <section id="page-data" class="page-view hidden" hidden aria-label="Data explorer">
+      <div class="page-toolbar"><div class="page-controls">
+        <div class="control search-control"><label for="dataSearch">Search filtered records</label><input id="dataSearch" type="search" placeholder="Store, date or value…" /></div>
+        <div class="control"><label for="dataSort">Sort by</label><select id="dataSort"><option value="Date">Date</option><option value="Store">Store</option><option value="Weekly_Sales">Weekly sales</option><option value="Holiday_Flag">Holiday flag</option><option value="Temperature">Temperature</option><option value="Fuel_Price">Fuel price</option><option value="CPI">CPI</option><option value="Unemployment">Unemployment</option></select></div>
+        <div class="control"><label for="dataOrder">Order</label><select id="dataOrder"><option value="desc">Descending</option><option value="asc">Ascending</option></select></div>
+        <div class="control"><label for="dataPageSize">Rows per page</label><select id="dataPageSize"><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></div>
+      </div><button id="exportCsv" type="button" class="btn">Download filtered CSV</button></div>
+      <article class="panel page-panel"><div class="panel-head"><div><h2>Sales Records</h2><p id="dataCount" class="sub" role="status">Load data to explore records.</p></div></div><div id="dataTable" class="table-wrap"></div><div class="table-pagination"><p id="dataPageLabel" class="sub" aria-live="polite">Page 1</p><div class="pagination-actions"><button id="dataPrev" type="button" class="btn secondary">Previous</button><button id="dataNext" type="button" class="btn secondary">Next</button></div></div><p class="table-caption">CSV export includes all matching rows across every page, using the current filters, search and sort order.</p></article>
+    </section>
     <p class="footer">Demo mode uses simulated data, not Walmart actual results. Currency is shown in USD. The dashboard processes uploaded CSV files locally in your browser. Walmart name/logo belong to their respective owner.</p>
   </main>
 </div>
@@ -97,7 +179,7 @@ window.addEventListener('load', () => {
   const YELLOW='#ffc220';
   const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const REQUIRED=['Store','Date','Weekly_Sales','Holiday_Flag','Temperature','Fuel_Price','CPI','Unemployment'];
-  let allRows=[], charts={};
+  let allRows=[], charts={}, pages=null;
   const money = n => '$'+new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:2}).format(n);
   const number = n => new Intl.NumberFormat('en-US').format(n);
   const avg = a => a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
@@ -241,6 +323,7 @@ window.addEventListener('load', () => {
     else {match=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);if(!match)return null;m=+match[1];d=+match[2];y=+match[3]}
     const dt=new Date(Date.UTC(y,m-1,d));return dt.getUTCFullYear()===y&&dt.getUTCMonth()===m-1&&dt.getUTCDate()===d?dt:null;
   }
+  const numericValue=value=>String(value??'').trim()===''?NaN:Number(value);
   function normalize(data){
     if(!data.length)throw Error('CSV file is empty.');
     const headers=Object.keys(data[0]).map(h=>h.replace(/^\uFEFF/,'').trim());
@@ -251,7 +334,7 @@ window.addEventListener('load', () => {
       const holiday=String(r.Holiday_Flag??'').trim().toLowerCase();
       if(!date||!Number.isFinite(sales)||!String(r.Store??'').trim()||!['0','1','true','false'].includes(holiday))return null;
       return {Store:String(r.Store).trim(),date,Weekly_Sales:sales,Holiday_Flag:['1','true'].includes(holiday)?1:0,
-        Temperature:Number(r.Temperature),Fuel_Price:Number(r.Fuel_Price),CPI:Number(r.CPI),Unemployment:Number(r.Unemployment)};
+        Temperature:numericValue(r.Temperature),Fuel_Price:numericValue(r.Fuel_Price),CPI:numericValue(r.CPI),Unemployment:numericValue(r.Unemployment)};
     }).filter(Boolean);
     if(!rows.length)throw Error('No valid records found. Check Date (MM/DD/YYYY or YYYY-MM-DD) and Weekly_Sales values.');
     return rows;
@@ -260,16 +343,17 @@ window.addEventListener('load', () => {
   function setOptions(id,values,label){const el=$(id);el.replaceChildren();const opt=new Option(label,'all');el.add(opt);values.forEach(v=>el.add(new Option(id==='month'?MONTHS[Number(v)-1]:id==='store'?'Store '+v:v,String(v))));}
   function initData(rows,isDemo=false){allRows=rows;treeSteps=[{dimension:'year',selected:null}];const stores=[...new Set(rows.map(r=>r.Store))].sort((a,b)=>Number(a)-Number(b));const years=[...new Set(rows.map(r=>r.date.getUTCFullYear()))].sort();
     setOptions('store',stores,'All stores');setOptions('year',years,'All years');setOptions('month',Array.from({length:12},(_,i)=>i+1),'All months');$('holiday').value='all';$('metric').value='week';
+    if(pages)pages.resetData();
     setStatus(`${isDemo?'DEMO / SIMULATED DATA — ':''}${number(rows.length)} valid store-week records loaded${isDemo?' (not real Walmart results)':''}. Filters and charts are ready.`);render();}
-  function filtered(){return allRows.filter(r=>($('store').value==='all'||r.Store===$('store').value)&&($('year').value==='all'||r.date.getUTCFullYear()===Number($('year').value))&&($('month').value==='all'||r.date.getUTCMonth()+1===Number($('month').value))&&($('holiday').value==='all'||r.Holiday_Flag===Number($('holiday').value)));}
+  function filtered({ignoreStore=false}={}){return allRows.filter(r=>(ignoreStore||$('store').value==='all'||r.Store===$('store').value)&&($('year').value==='all'||r.date.getUTCFullYear()===Number($('year').value))&&($('month').value==='all'||r.date.getUTCMonth()+1===Number($('month').value))&&($('holiday').value==='all'||r.Holiday_Flag===Number($('holiday').value)));}
   function draw(id,type,data,options={}){
     const palette=chartPalette();Chart.defaults.color=palette.text;Chart.defaults.borderColor=palette.grid;
     if(charts[id])charts[id].destroy();
     charts[id]=new Chart($(id),{type,data,options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
-      plugins:{legend:{display:false},tooltip:{backgroundColor:palette.surface,titleColor:palette.ink,bodyColor:palette.ink,borderColor:palette.grid,borderWidth:1,callbacks:{label:context=>{const n=context.parsed.y??context.parsed.x;return `${context.dataset.label||'Sales'}: ${money(n)}`}}}},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:palette.surface,titleColor:palette.ink,bodyColor:palette.ink,borderColor:palette.grid,borderWidth:1,callbacks:{label:context=>{const n=context.chart.options.indexAxis==='y'?context.parsed.x:context.parsed.y;return `${context.dataset.label||'Sales'}: ${money(n)}`}}}},
       scales:{x:{grid:{display:false},ticks:{color:palette.text,maxRotation:0,autoSkip:true,maxTicksLimit:10}},y:{grid:{color:palette.grid},ticks:{color:palette.text,callback:v=>money(v)}}},...options}});
   }
-  function render(){const palette=chartPalette(),BLUE=palette.blue;const rows=filtered(), storeGroup=group(rows,r=>r.Store), distinctWeeks=new Set(rows.map(r=>r.date.toISOString().slice(0,10))).size;
+  function renderOverview(){const palette=chartPalette(),BLUE=palette.blue;const rows=filtered(), storeGroup=group(rows,r=>r.Store), distinctWeeks=new Set(rows.map(r=>r.date.toISOString().slice(0,10))).size;
     $('totalSales').textContent=rows.length?money(sum(rows.map(r=>r.Weekly_Sales))):'—';$('avgSales').textContent=rows.length?money(avg(rows.map(r=>r.Weekly_Sales))):'—';$('storeCount').textContent=number(storeGroup.size);$('weeksDetail').textContent=`${distinctWeeks} distinct weeks selected`;
     const ranking=[...storeGroup].map(([s,a])=>({store:s,total:sum(a.map(r=>r.Weekly_Sales))})).sort((a,b)=>b.total-a.total);
     $('topStore').textContent=ranking.length?'Store '+ranking[0].store:'—';$('salesDetail').textContent=`${number(rows.length)} store-week records`;
@@ -287,6 +371,9 @@ window.addEventListener('load', () => {
     if(!cards.length)cards.push(['No records','Adjust the filters or upload a different CSV to explore insights.']);
     $('insights').replaceChildren(...cards.map(([title,desc])=>{const div=document.createElement('div');div.className='insight';const strong=document.createElement('strong');strong.textContent=title;const p=document.createElement('p');p.textContent=desc;div.append(strong,p);return div}));
   }
+  function render(){if(pages)pages.render();else renderOverview()}
+  pages=window.createSalesPages({$,money,number,avg,sum,group,fullMoney,periodKey,MONTHS,draw,chartPalette,getRows:filtered,getAllRows:()=>allRows,renderOverview});
+  pages.init();
   syncTheme();renderTree([]);
   $('themeToggle').addEventListener('click',()=>{
     const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;

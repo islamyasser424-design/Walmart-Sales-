@@ -5,7 +5,7 @@ Responsive static sales analytics dashboard in Walmart blue and yellow, built wi
 ## Run on GitHub Pages
 
 1. Create a new **public** GitHub repository (for example `walmart-sales-dashboard`).
-2. Upload **all files/folders** from this project to the repository root, including `index.html` and `assets/walmart-logo.png`.
+2. Upload **all files/folders** from this project to the repository root, including `index.html`, `pages.js`, `pages.css` and `assets/walmart-logo.png`.
 3. In repository **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, branch **main**, folder **/(root)**, then Save.
 4. Open `https://YOUR_USERNAME.github.io/walmart-sales-dashboard/` once deployed.
 5. The real sales data from `data/walmart_sales.csv` loads automatically. You can also click **Upload CSV** to analyze a different dataset locally.
@@ -39,6 +39,26 @@ Store,Date,Weekly_Sales,Holiday_Flag,Temperature,Fuel_Price,CPI,Unemployment
 
 
 Quarter and month splits use calendar quarter/month across the selected records. Add a Year level or use the Year filter to inspect one year.
+
+## Pages and navigation
+
+The sidebar opens seven views without reloading the dataset. The current page has an Active style and `aria-current="page"`. Hash links support direct opening, browser Back/Forward and refresh on GitHub Pages. On mobile, the navigation scrolls horizontally.
+
+| Page | Link | Features |
+| --- | --- | --- |
+| Sales Overview | `#overview` | KPIs, trend granularity, store ranking and interactive decomposition tree |
+| Store Details | `#stores` | Store selector, sales trend, rank, best week, benchmark and monthly table |
+| Compare Stores | `#compare-stores` | Up to four stores, separate trend lines, revenue totals and comparison table |
+| Period Analysis | `#periods` | Monthly, quarterly or yearly totals, prior-period changes and record coverage |
+| Seasons & Holidays | `#seasonality` | Holiday/regular averages, relative difference and monthly/yearly comparisons |
+| Economic Factors | `#economics` | Factor selector, scatter plot, Pearson correlation and sales by factor range |
+| Data Explorer | `#data` | Search, sorting, pagination and download of every matching CSV row |
+
+Year, month and holiday filters apply across pages. Store Details and Compare Stores use their own store selectors; the global store choice is retained for the other pages. Page choices and uploaded data stay in memory while navigating; the theme preference is also remembered between visits.
+
+Period changes use the immediately preceding calendar period within the selected data. Missing prior periods or a zero prior total show no percentage. Totals reflect available records, so the comparison table includes week, store and record counts to help identify partial periods. Missing store periods appear as gaps in comparison lines.
+
+Economic analysis excludes blank or nonnumeric factor values. Correlation shows association, not causation, and is unavailable with fewer than two valid observations or a constant variable. CSV export uses the current filters, search and sort order across all result pages, preserves blank factor values and escapes spreadsheet formula prefixes.
 
 ## Note
 
