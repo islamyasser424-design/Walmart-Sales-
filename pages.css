@@ -474,6 +474,93 @@
 /* ==========================================================================
    5. Filters & Controls (CSS Grid & Flexbox)
    ========================================================================== */
+.filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 1fr)) minmax(135px, 160px);
+  gap: 12px;
+  margin: 22px 0;
+  align-items: stretch;
+}
+
+.filter-reset-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--white);
+}
+
+.reset-filter-label {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .65px;
+  margin-bottom: 8px;
+}
+
+.filter-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 28px;
+  padding: 5px 12px;
+  background: var(--soft);
+  color: var(--blue);
+  border: 1px solid rgba(0, 83, 226, 0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-reset-btn:hover {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 83, 226, 0.25);
+}
+
+.filter-reset-btn svg,
+.top-reset-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.filter-reset-btn:hover svg,
+.top-reset-btn:hover svg {
+  transform: rotate(-45deg);
+}
+
+/* Top bar reset button */
+.top-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 750;
+  border-color: var(--line);
+}
+
+.top-reset-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+[data-theme="dark"] .filter-reset-btn {
+  background: var(--soft);
+  color: var(--blue);
+  border-color: rgba(138, 180, 255, 0.25);
+}
+
+[data-theme="dark"] .filter-reset-btn:hover {
+  background: var(--blue);
+  color: #0b1930;
+}
+
 .filters.filters-three {
   grid-template-columns: repeat(3, minmax(130px, 1fr));
 }
@@ -710,6 +797,26 @@
   background: var(--subtle);
 }
 
+/* Power BI-Style Interactive Click-to-Filter Tables */
+.data-table.table-interactive tbody tr.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.data-table.table-interactive tbody tr.clickable-row:hover {
+  background: var(--soft) !important;
+}
+
+.data-table.table-interactive tbody tr.clickable-row:hover td {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.data-table.table-interactive tbody tr.clickable-row:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
 .data-table .numeric {
   text-align: right;
   font-variant-numeric: tabular-nums;
@@ -893,6 +1000,10 @@ button:disabled {
     margin: 16px 0;
   }
 
+  .filters .filter-reset-wrap {
+    grid-column: span 2;
+  }
+
   .filters.filters-three {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1021,6 +1132,10 @@ button:disabled {
 
   .filters {
     grid-template-columns: 1fr !important;
+  }
+
+  .filters .filter-reset-wrap {
+    grid-column: span 1;
   }
 
   .filters.filters-three {

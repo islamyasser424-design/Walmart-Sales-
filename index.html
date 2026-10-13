@@ -70,7 +70,7 @@
   <main class="main">
     <div class="top">
       <div><div class="eyebrow">Retail analytics / performance</div><h1 id="pageHeading" class="page-title" tabindex="-1"><span id="pageTitle">Sales Overview</span> <span style="color:var(--yellow)">✦</span></h1><p class="subtitle" id="pageSubtitle">Track weekly performance, store rankings and the factors shaping sales.</p></div>
-      <div class="actions"><button id="themeToggle" class="btn secondary theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon" class="theme-icon" aria-hidden="true">☾</span><span id="themeText">Dark mode</span></button><button id="demoBtn" class="btn secondary">Load Demo Data</button><label class="btn upload-label">↥ Upload CSV<input type="file" id="fileInput" accept=".csv,text/csv" /></label></div>
+      <div class="actions"><button id="themeToggle" class="btn secondary theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon" class="theme-icon" aria-hidden="true">☾</span><span id="themeText">Dark mode</span></button><button id="topResetFilterBtn" class="btn secondary top-reset-btn" type="button" title="Reset all dashboard filters and cross-filters"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Reset Filters</span></button><button id="demoBtn" class="btn secondary">Load Demo Data</button><label class="btn upload-label">↥ Upload CSV<input type="file" id="fileInput" accept=".csv,text/csv" /></label></div>
     </div>
     <div id="status" class="status" role="status">Upload a Walmart Sales CSV file to view your actual insights, or choose Load Demo Data for a preview.</div>
     <div id="crossFilterBanner" class="cross-filter-banner hidden" role="status" aria-live="polite">
@@ -89,6 +89,13 @@
       <div class="filter"><label for="year">Year</label><select id="year"><option value="all">All years</option></select></div>
       <div class="filter"><label for="month">Month</label><select id="month"><option value="all">All months</option></select></div>
       <div class="filter"><label for="holiday">Holiday week</label><select id="holiday"><option value="all">All weeks</option><option value="1">Holiday only</option><option value="0">Non-holiday only</option></select></div>
+      <div class="filter filter-reset-wrap">
+        <label class="reset-filter-label">Quick Action</label>
+        <button id="filterResetBtn" class="filter-reset-btn" type="button" title="Reset all dashboard filters and cross-filters">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reset Filters</span>
+        </button>
+      </div>
     </section>
     <div id="page-overview" class="page-view">
     <section class="metrics" aria-label="Key Performance Indicators with 3D insight flip cards">
@@ -1274,7 +1281,7 @@ window.addEventListener('load', () => {
       };
     });
   }
-  pages=window.createSalesPages({$,money,number,avg,sum,group,fullMoney,periodKey,MONTHS,draw,chartPalette,getRows:filtered,getAllRows:()=>allRows,renderOverview,updateCrossFilterBanner,toggleCrossFilter,handleTrendClick,initFlipCards});
+  pages=window.createSalesPages({$,money,number,avg,sum,group,fullMoney,periodKey,MONTHS,draw,chartPalette,getRows:filtered,getAllRows:()=>allRows,renderOverview,updateCrossFilterBanner,toggleCrossFilter,handleTrendClick,initFlipCards,clearAllCrossFilters});
   pages.init();
   syncTheme();renderTree([]);
   $('themeToggle').addEventListener('click',()=>{
@@ -1283,8 +1290,10 @@ window.addEventListener('load', () => {
     syncTheme();if(window.Chart&&Object.keys(charts).length)render();
   });
   $('resetTree').addEventListener('click',()=>{treeSteps=[{dimension:'year',selected:null}];$('treeScroll').scrollLeft=0;renderTree(filtered(),'tree-split-0')});
-  const clearBtn=$('clearCrossFilterBtn');
-  if(clearBtn)clearBtn.addEventListener('click',clearAllCrossFilters);
+  ['clearCrossFilterBtn', 'topResetFilterBtn', 'filterResetBtn'].forEach(id=>{
+    const btn=$(id);
+    if(btn)btn.addEventListener('click',clearAllCrossFilters);
+  });
   window.addEventListener('resize',scheduleTreeLines);
   if(window.ResizeObserver)new ResizeObserver(scheduleTreeLines).observe($('treeSurface'));
   ['store','year','month','holiday'].forEach(id=>{

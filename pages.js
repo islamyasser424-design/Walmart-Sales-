@@ -1,5 +1,5 @@
 'use strict';
-window.createSalesPages = function({ $, money, number, avg, sum, group, fullMoney, periodKey, MONTHS, draw, chartPalette, getRows, getAllRows, renderOverview, updateCrossFilterBanner, toggleCrossFilter, handleTrendClick, initFlipCards }) {
+window.createSalesPages = function({ $, money, number, avg, sum, group, fullMoney, periodKey, MONTHS, draw, chartPalette, getRows, getAllRows, renderOverview, updateCrossFilterBanner, toggleCrossFilter, handleTrendClick, initFlipCards, clearAllCrossFilters }) {
   const ROUTES = {
     overview: ['Sales Overview', 'Track weekly performance, store rankings and the factors shaping sales.'],
     stores: ['Store Details', 'Explore one store, its strongest weeks and its position among other stores.'],
@@ -71,9 +71,9 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
       .sort((a, b) => a.key.localeCompare(b.key));
   }
 
-  function table(id, columns, rows) {
+  function table(id, columns, rows, onRowClick = null) {
     const el = document.createElement('table');
-    el.className = 'data-table';
+    el.className = 'data-table' + (onRowClick ? ' table-interactive' : '');
     const head = document.createElement('thead'), tr = document.createElement('tr');
     columns.forEach(c => {
       const th = document.createElement('th');
@@ -93,8 +93,21 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
       row.append(td);
       body.append(row);
     }
-    rows.forEach(values => {
+    rows.forEach((values, rowIndex) => {
       const row = document.createElement('tr');
+      if (onRowClick) {
+        row.className = 'clickable-row';
+        row.tabIndex = 0;
+        row.setAttribute('role', 'button');
+        row.title = 'Click to cross-filter dashboard';
+        row.addEventListener('click', () => onRowClick(values, rowIndex));
+        row.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onRowClick(values, rowIndex);
+          }
+        });
+      }
       values.forEach((cell, i) => {
         const td = document.createElement('td'), object = cell !== null && typeof cell === 'object';
         td.textContent = object ? cell.text : String(cell ?? '—');
@@ -193,9 +206,78 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
     set('detailPeak', peak ? money(peak.total) : '—');
     set('detailPeakDate', peak ? peak.key : 'No records in the selected period');
     const timeline = periodTotals(rows, $('storePeriod').value), p = chartPalette();
-    draw('detailTrendChart', 'line', { labels: timeline.map(x => x.key), datasets: [{ label: 'Store ' + id, data: timeline.map(x => x.total), borderColor: p.blue, backgroundColor: p.fill, fill: true, tension: .2, pointRadius: timeline.length > 40 ? 0 : 2 }] }, optionsFor());
-    draw('detailBenchmarkChart', 'bar', { labels: ['Store ' + (id || '—'), 'All stores'], datasets: [{ label: 'Average weekly sales', data: [mean, averageSales(all)], backgroundColor: [p.blue, '#ffc220'], borderRadius: 5 }] }, optionsFor());
-    table('detailTable', [{ label: 'Month' }, { label: 'Total sales', numeric: true }, { label: 'Weekly average', numeric: true }, { label: 'Records', numeric: true }], periodTotals(rows, 'month').map(x => [x.key, fullMoney(x.total), showMoney(averageSales(x.records)), number(x.records.length)]));
+    draw('detailTrendChart', 'line', {
+      labels: timeline.map(x => x.key),
+      datasets: [{
+        label: 'Store ' + id,
+        data: timeline.map(x => x.total),
+        borderColor: p.blue,
+        backgroundColor: p.fill,
+        fill: true,
+        tension: .2,
+        pointRadius: timeline.length > 40 ? 3 : 5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: p.blue,
+        pointHoverBackgroundColor: '#ffc220'
+      }]
+    }, optionsFor(false, {
+      onClick: (e, elements) => {
+        if (!elements.length || !handleTrendClick) return;
+        const idx = elements[0].index;
+        handleTrendClick(timeline[idx].key, $('storePeriod').value);
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click data point to filter dashboard by period'
+          }
+        }
+      }
+    }));
+
+    draw('detailBenchmarkChart', 'bar', {
+      labels: ['Store ' + (id || '—'), 'All stores'],
+      datasets: [{
+        label: 'Average weekly sales',
+        data: [mean, averageSales(all)],
+        backgroundColor: [p.blue, '#ffc220'],
+        borderRadius: 5
+      }]
+    }, optionsFor(false, {
+      onClick: (e, elements) => {
+        if (!elements.length || !toggleCrossFilter) return;
+        if (elements[0].index === 1) {
+          toggleCrossFilter('store', 'all');
+        } else {
+          toggleCrossFilter('store', id);
+        }
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` Avg Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click bar to toggle store filter'
+          }
+        }
+      }
+    }));
+
+    const monthList = periodTotals(rows, 'month');
+    table('detailTable', [
+      { label: 'Month' },
+      { label: 'Total sales', numeric: true },
+      { label: 'Weekly average', numeric: true },
+      { label: 'Records', numeric: true }
+    ], monthList.map(x => [x.key, fullMoney(x.total), showMoney(averageSales(x.records)), number(x.records.length)]), (rowVals, i) => {
+      if (handleTrendClick && monthList[i]) handleTrendClick(monthList[i].key, 'month');
+    });
   }
 
   function renderCompare() {
@@ -244,7 +326,25 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
 
     const isMany = state.stores.length > 8;
     const isLots = state.stores.length > 15;
-    const trendOpts = optionsFor(!isLots);
+    const trendOpts = optionsFor(!isLots, {
+      onClick: (e, elements) => {
+        if (!elements.length || !handleTrendClick) return;
+        const idx = elements[0].index;
+        handleTrendClick(keys[idx], grain);
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        legend: { display: !isLots, labels: { color: p.text, boxWidth: 11, usePointStyle: true } },
+        tooltip: {
+          callbacks: {
+            label: c => ` ${c.dataset.label}: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click data point to filter dashboard by period'
+          }
+        }
+      }
+    });
 
     draw('compareTrendChart', 'line', {
       labels: keys,
@@ -257,7 +357,8 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
         tension: 0.16,
         borderWidth: isLots ? 1.5 : 2.5,
         spanGaps: false,
-        pointRadius: keys.length > 35 || isMany ? 0 : 2.5
+        pointRadius: keys.length > 35 || isMany ? 3 : 5,
+        pointHoverRadius: 8
       }))
     }, trendOpts);
 
@@ -270,7 +371,24 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
         backgroundColor: sortedDetails.map(x => x.color),
         borderRadius: 4
       }]
-    }, optionsFor(false));
+    }, optionsFor(false, {
+      onClick: (e, elements) => {
+        if (!elements.length || !toggleCrossFilter) return;
+        const idx = elements[0].index;
+        toggleCrossFilter('store', sortedDetails[idx].id);
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` Total Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: items => items.length ? `⚡ Click bar to filter dashboard by Store ${sortedDetails[items[0].dataIndex].id}` : ''
+          }
+        }
+      }
+    }));
 
     const combined = sales(selected);
     table('compareTable', [
@@ -285,7 +403,11 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
       showMoney(averageSales(x.records)),
       number(x.records.length),
       combined !== 0 && x.records.length ? (x.total / combined * 100).toFixed(1) + '%' : '—'
-    ]));
+    ]), (rowVals, i) => {
+      if (toggleCrossFilter && sortedDetails[i]) {
+        toggleCrossFilter('store', sortedDetails[i].id);
+      }
+    });
   }
 
   function previousPeriod(key, grain) {
@@ -335,10 +457,22 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
         }
       }
     }));
-    table('periodTable', [{ label: 'Period' }, { label: 'Sales', numeric: true }, { label: 'Change vs prior period', numeric: true }, { label: 'Distinct weeks', numeric: true }, { label: 'Stores', numeric: true }, { label: 'Records', numeric: true }], [...timeline].reverse().map(x => {
+    const reversedTimeline = [...timeline].reverse();
+    table('periodTable', [
+      { label: 'Period' },
+      { label: 'Sales', numeric: true },
+      { label: 'Change vs prior period', numeric: true },
+      { label: 'Distinct weeks', numeric: true },
+      { label: 'Stores', numeric: true },
+      { label: 'Records', numeric: true }
+    ], reversedTimeline.map(x => {
       const prior = lookup.get(previousPeriod(x.key, grain)), change = prior && prior.total !== 0 ? (x.total / prior.total - 1) * 100 : null;
       return [x.key, fullMoney(x.total), changeCell(change), new Set(x.records.map(r => periodKey(r.date, 'week'))).size, new Set(x.records.map(r => r.Store)).size, number(x.records.length)];
-    }));
+    }), (rowVals, i) => {
+      if (handleTrendClick && reversedTimeline[i]) {
+        handleTrendClick(reversedTimeline[i].key, grain);
+      }
+    });
   }
 
   function renderSeasons() {
@@ -400,7 +534,26 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
         }
       }
     }));
-    table('seasonTable', [{ label: 'Month' }, { label: 'Total sales', numeric: true }, { label: 'Weekly average', numeric: true }, { label: 'Holiday average', numeric: true }, { label: 'Regular average', numeric: true }, { label: 'Records', numeric: true }], [...months].sort(([a], [b]) => a - b).map(([m, r]) => [MONTHS[m], fullMoney(sales(r)), showMoney(averageSales(r)), showMoney(split(r, 1)), showMoney(split(r, 0)), number(r.length)]));
+    const sortedSeasonMonths = [...months].sort(([a], [b]) => a - b);
+    table('seasonTable', [
+      { label: 'Month' },
+      { label: 'Total sales', numeric: true },
+      { label: 'Weekly average', numeric: true },
+      { label: 'Holiday average', numeric: true },
+      { label: 'Regular average', numeric: true },
+      { label: 'Records', numeric: true }
+    ], sortedSeasonMonths.map(([m, r]) => [
+      MONTHS[m],
+      fullMoney(sales(r)),
+      showMoney(averageSales(r)),
+      showMoney(split(r, 1)),
+      showMoney(split(r, 0)),
+      number(r.length)
+    ]), (rowVals, i) => {
+      if (toggleCrossFilter && sortedSeasonMonths[i]) {
+        toggleCrossFilter('month', String(sortedSeasonMonths[i][0] + 1));
+      }
+    });
   }
 
   function renderEconomics() {
@@ -448,7 +601,8 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
             yAxisID: 'y',
             tension: 0.25,
             borderWidth: 2.5,
-            pointRadius: timelineLabels.length > 40 ? 0 : 2
+            pointRadius: timelineLabels.length > 40 ? 2 : 4,
+            pointHoverRadius: 7
           },
           {
             label: name,
@@ -460,16 +614,28 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
             tension: 0.25,
             borderWidth: 2,
             borderDash: [5, 4],
-            pointRadius: timelineLabels.length > 40 ? 0 : 2
+            pointRadius: timelineLabels.length > 40 ? 2 : 4,
+            pointHoverRadius: 7
           }
         ]
       }, {
+        onClick: (e, elements) => {
+          if (!elements.length || !handleTrendClick) return;
+          const idx = elements[0].index;
+          handleTrendClick(timelineLabels[idx], 'week');
+        },
+        onHover: (e, elements) => {
+          e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+        },
         plugins: {
           legend: { display: true, labels: { color: p.text, boxWidth: 12 } },
           tooltip: {
             backgroundColor: p.surface, titleColor: p.ink, bodyColor: p.ink, borderColor: p.grid, borderWidth: 1,
+            footerFont: { size: 10, weight: '600', style: 'italic' },
+            footerColor: p.blue,
             callbacks: {
-              label: c => c.dataset.yAxisID === 'y' ? `Sales: ${money(c.parsed.y)}` : `${name}: ${numeric(c.parsed.y)}`
+              label: c => c.dataset.yAxisID === 'y' ? `Sales: ${money(c.parsed.y)}` : `${name}: ${numeric(c.parsed.y)}`,
+              footer: () => '⚡ Click data point to filter dashboard by week'
             }
           }
         },
@@ -527,7 +693,7 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
             tension: 0.3,
             borderWidth: 3,
             pointRadius: 4,
-            pointHoverRadius: 6,
+            pointHoverRadius: 7,
             pointBackgroundColor: p.blue,
             order: 1
           },
@@ -545,10 +711,27 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
           }
         ]
       }, {
+        onClick: (e, elements) => {
+          if (!elements.length || !toggleCrossFilter) return;
+          const bin = trendBins[elements[0].index];
+          if (!bin || !bin.records.length) return;
+          const monthCounts = new Map();
+          bin.records.forEach(r => {
+            const m = String(r.date.getUTCMonth() + 1);
+            monthCounts.set(m, (monthCounts.get(m) || 0) + 1);
+          });
+          const topMonth = [...monthCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+          toggleCrossFilter('month', topMonth);
+        },
+        onHover: (e, elements) => {
+          e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+        },
         plugins: {
           legend: { display: true, labels: { color: p.text, boxWidth: 12, usePointStyle: true } },
           tooltip: {
             backgroundColor: p.surface, titleColor: p.ink, bodyColor: p.ink, borderColor: p.grid, borderWidth: 1,
+            footerFont: { size: 10, weight: '600', style: 'italic' },
+            footerColor: p.blue,
             callbacks: {
               title: items => items.length ? `${name} Interval: ${items[0].label}` : '',
               label: c => {
@@ -559,7 +742,8 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
                   return [`Avg Sales: ${money(c.parsed.y)}`, `Sample: ${number(count)} records (${pctShare}%)`];
                 }
                 return `Projected Trend: ${money(c.parsed.y)}`;
-              }
+              },
+              footer: () => '⚡ Click interval to filter dashboard by associated month'
             }
           }
         },
@@ -602,13 +786,48 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
         backgroundColor: p.blue,
         borderRadius: 4
       }]
-    }, optionsFor());
+    }, optionsFor(false, {
+      onClick: (e, elements) => {
+        if (!elements.length || !toggleCrossFilter) return;
+        const bin = bins[elements[0].index];
+        if (!bin || !bin.records.length) return;
+        const monthCounts = new Map();
+        bin.records.forEach(r => {
+          const m = String(r.date.getUTCMonth() + 1);
+          monthCounts.set(m, (monthCounts.get(m) || 0) + 1);
+        });
+        const topMonth = [...monthCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+        toggleCrossFilter('month', topMonth);
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` Avg Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click range bar to filter dashboard by associated month'
+          }
+        }
+      }
+    }));
 
     table('economicTable', [
       { label: name + ' range' },
       { label: 'Average sales', numeric: true },
       { label: 'Records', numeric: true }
-    ], bins.map(b => [b.label, showMoney(averageSales(b.records)), number(b.records.length)]));
+    ], bins.map(b => [b.label, showMoney(averageSales(b.records)), number(b.records.length)]), (rowVals, i) => {
+      const bin = bins[i];
+      if (bin && bin.records.length && toggleCrossFilter) {
+        const monthCounts = new Map();
+        bin.records.forEach(r => {
+          const m = String(r.date.getUTCMonth() + 1);
+          monthCounts.set(m, (monthCounts.get(m) || 0) + 1);
+        });
+        const topMonth = [...monthCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+        toggleCrossFilter('month', topMonth);
+      }
+    });
   }
 
   function dataRows() {
@@ -665,7 +884,11 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
       numeric(r.Fuel_Price),
       numeric(r.CPI),
       numeric(r.Unemployment)
-    ]));
+    ]), (rowVals, i) => {
+      if (toggleCrossFilter && visible[i]) {
+        toggleCrossFilter('store', visible[i].Store);
+      }
+    });
 
     set('dataCount', number(rows.length) + ' matching records out of ' + number(getRows().length) + ' filtered records');
     set('dataPageLabel', 'Page ' + state.dataPage + ' of ' + pages + (rows.length ? ' · Rows ' + number(start + 1) + '–' + number(Math.min(start + size, rows.length)) : ' · No records'));
