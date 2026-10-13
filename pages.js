@@ -1,5 +1,5 @@
 'use strict';
-window.createSalesPages = function({ $, money, number, avg, sum, group, fullMoney, periodKey, MONTHS, draw, chartPalette, getRows, getAllRows, renderOverview }) {
+window.createSalesPages = function({ $, money, number, avg, sum, group, fullMoney, periodKey, MONTHS, draw, chartPalette, getRows, getAllRows, renderOverview, updateCrossFilterBanner, toggleCrossFilter, handleTrendClick, initFlipCards }) {
   const ROUTES = {
     overview: ['Sales Overview', 'Track weekly performance, store rankings and the factors shaping sales.'],
     stores: ['Store Details', 'Explore one store, its strongest weeks and its position among other stores.'],
@@ -29,9 +29,11 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
     return `hsl(${hue}, 70%, 52%)`;
   };
 
-  const optionsFor = (legend = false) => {
+  const optionsFor = (legend = false, custom = {}) => {
     const p = chartPalette();
     return {
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { display: legend, labels: { color: p.text, boxWidth: 11, usePointStyle: true } },
         tooltip: {
@@ -39,14 +41,27 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
           titleColor: p.ink,
           bodyColor: p.ink,
           borderColor: p.grid,
-          borderWidth: 1,
-          callbacks: { label: c => (c.dataset.label || 'Sales') + ': ' + money(c.parsed.y) }
+          borderWidth: 1.5,
+          padding: 10,
+          boxPadding: 4,
+          cornerRadius: 8,
+          titleFont: { size: 12, weight: '700' },
+          bodyFont: { size: 11, weight: '500' },
+          footerFont: { size: 10, weight: '600', style: 'italic' },
+          footerColor: p.blue,
+          callbacks: {
+            label: c => {
+              const v = c.parsed.y !== undefined && c.parsed.y !== null ? c.parsed.y : c.parsed.x;
+              return ' ' + (c.dataset.label || 'Sales') + ': ' + money(v) + ' (' + fullMoney(v) + ')';
+            }
+          }
         }
       },
       scales: {
         x: { grid: { display: false }, ticks: { color: p.text, maxRotation: 0, maxTicksLimit: 10 } },
         y: { grid: { color: p.grid }, ticks: { color: p.text, callback: v => money(v) } }
-      }
+      },
+      ...custom
     };
   };
 
@@ -295,7 +310,31 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
     $('periodChange').className = 'value' + (growth > 0 ? ' change-up' : growth < 0 ? ' change-down' : '');
     set('periodChangeValue', latest && previous ? (latest.total - previous.total >= 0 ? '+' : '') + money(latest.total - previous.total) : 'Previous period is not in this selection');
     set('periodCount', number(timeline.length));
-    draw('periodChart', 'bar', { labels: timeline.map(x => x.key), datasets: [{ label: 'Total sales', data: timeline.map(x => x.total), backgroundColor: timeline.map((x, i) => i === timeline.length - 1 ? '#ffc220' : p.blue), borderRadius: 4 }] }, optionsFor());
+    draw('periodChart', 'bar', {
+      labels: timeline.map(x => x.key),
+      datasets: [{
+        label: 'Total sales',
+        data: timeline.map(x => x.total),
+        backgroundColor: timeline.map((x, i) => i === timeline.length - 1 ? '#ffc220' : p.blue),
+        borderRadius: 4
+      }]
+    }, optionsFor(false, {
+      onClick: (e, elements) => {
+        if (!elements.length || !handleTrendClick) return;
+        handleTrendClick(timeline[elements[0].index].key, grain);
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` Total Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click bar to filter dashboard by this period'
+          }
+        }
+      }
+    }));
     table('periodTable', [{ label: 'Period' }, { label: 'Sales', numeric: true }, { label: 'Change vs prior period', numeric: true }, { label: 'Distinct weeks', numeric: true }, { label: 'Stores', numeric: true }, { label: 'Records', numeric: true }], [...timeline].reverse().map(x => {
       const prior = lookup.get(previousPeriod(x.key, grain)), change = prior && prior.total !== 0 ? (x.total / prior.total - 1) * 100 : null;
       return [x.key, fullMoney(x.total), changeCell(change), new Set(x.records.map(r => periodKey(r.date, 'week'))).size, new Set(x.records.map(r => r.Store)).size, number(x.records.length)];
@@ -314,9 +353,53 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
     set('seasonBestValue', best ? money(best.mean) + ' average store-week sales' : 'No records');
     set('seasonNote', holiday.length && regular.length ? 'Average store-week sales account for different numbers of records. Calendar months combine the selected years.' : 'Select All weeks and a period containing holiday and regular records to compare both groups.');
     const p = chartPalette(), split = (records, flag) => averageSales(records.filter(r => r.Holiday_Flag === flag));
-    draw('seasonMonthlyChart', 'bar', { labels: MONTHS, datasets: [{ label: 'Regular weeks', data: MONTHS.map((_, i) => split(months.get(i) || [], 0)), backgroundColor: p.blue, borderRadius: 3 }, { label: 'Holiday weeks', data: MONTHS.map((_, i) => split(months.get(i) || [], 1)), backgroundColor: '#ffc220', borderRadius: 3 }] }, optionsFor(true));
+    draw('seasonMonthlyChart', 'bar', {
+      labels: MONTHS,
+      datasets: [
+        { label: 'Regular weeks', data: MONTHS.map((_, i) => split(months.get(i) || [], 0)), backgroundColor: p.blue, borderRadius: 3 },
+        { label: 'Holiday weeks', data: MONTHS.map((_, i) => split(months.get(i) || [], 1)), backgroundColor: '#ffc220', borderRadius: 3 }
+      ]
+    }, optionsFor(true, {
+      onClick: (e, elements) => {
+        if (!elements.length || !toggleCrossFilter) return;
+        toggleCrossFilter('month', String(elements[0].index + 1));
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` ${c.dataset.label}: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click month bar to filter dashboard'
+          }
+        }
+      }
+    }));
     const years = [...group(rows, r => String(r.date.getUTCFullYear()))].sort(([a], [b]) => a.localeCompare(b));
-    draw('seasonYearChart', 'bar', { labels: years.map(([year]) => year), datasets: [{ label: 'Regular weeks', data: years.map(([, r]) => split(r, 0)), backgroundColor: p.blue, borderRadius: 4 }, { label: 'Holiday weeks', data: years.map(([, r]) => split(r, 1)), backgroundColor: '#ffc220', borderRadius: 4 }] }, optionsFor(true));
+    draw('seasonYearChart', 'bar', {
+      labels: years.map(([year]) => year),
+      datasets: [
+        { label: 'Regular weeks', data: years.map(([, r]) => split(r, 0)), backgroundColor: p.blue, borderRadius: 4 },
+        { label: 'Holiday weeks', data: years.map(([, r]) => split(r, 1)), backgroundColor: '#ffc220', borderRadius: 4 }
+      ]
+    }, optionsFor(true, {
+      onClick: (e, elements) => {
+        if (!elements.length || !toggleCrossFilter) return;
+        toggleCrossFilter('year', years[elements[0].index][0]);
+      },
+      onHover: (e, elements) => {
+        e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: c => ` ${c.dataset.label}: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer: () => '⚡ Click year bar to filter dashboard'
+          }
+        }
+      }
+    }));
     table('seasonTable', [{ label: 'Month' }, { label: 'Total sales', numeric: true }, { label: 'Weekly average', numeric: true }, { label: 'Holiday average', numeric: true }, { label: 'Regular average', numeric: true }, { label: 'Records', numeric: true }], [...months].sort(([a], [b]) => a - b).map(([m, r]) => [MONTHS[m], fullMoney(sales(r)), showMoney(averageSales(r)), showMoney(split(r, 1)), showMoney(split(r, 0)), number(r.length)]));
   }
 
@@ -626,6 +709,7 @@ window.createSalesPages = function({ $, money, number, avg, sum, group, fullMone
       data: renderData
     };
     if (state.page === 'data' || window.Chart) renderers[state.page]();
+    if (initFlipCards) initFlipCards();
   }
 
   function route(focus = false) {

@@ -112,7 +112,7 @@
 }
 
 /* ==========================================================================
-   3. 3D Flip Cards & DAX Measures (Dynamic HTML & CSS 3D Transforms)
+   3. 3D Flip Cards & Metric Business Insights (CSS 3D Transforms & Dynamic HTML)
    ========================================================================== */
 .metrics {
   display: grid;
@@ -128,8 +128,8 @@
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  min-height: 148px;
-  height: 148px;
+  min-height: 156px;
+  height: 156px;
   outline: none;
 }
 
@@ -242,12 +242,19 @@
   animation: bounceHint 1.2s infinite;
 }
 
-/* 3D Flip Back (DAX Measure Showcase) */
+/* 3D Flip Back (Metric Intelligence & Business Takeaway) */
 .flip-card-back {
   transform: rotateY(180deg);
   background: var(--subtle);
   border-color: var(--blue);
   padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card.yellow .flip-card-back {
+  border-color: var(--yellow);
 }
 
 .flip-card-back:before {
@@ -260,51 +267,164 @@
   background: linear-gradient(90deg, var(--blue), var(--yellow));
 }
 
-.dax-header {
+.metric-back-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--blue);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-bottom: 3px;
 }
 
-.dax-badge {
+.metric-back-badge {
   background: var(--soft);
   color: var(--blue);
-  padding: 2px 7px;
+  padding: 2.5px 8px;
   border-radius: 6px;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
-.dax-code {
-  font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
-  font-size: 10.5px;
-  line-height: 1.42;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  padding: 6px 8px;
+.card.yellow .metric-back-badge {
+  background: rgba(255, 194, 32, 0.18);
+  color: #a06e00;
+}
+
+.metric-back-icon {
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.metric-back-title {
+  font-size: 12px;
+  font-weight: 800;
   color: var(--ink);
-  margin: 6px 0 4px;
-  white-space: pre;
-  overflow-x: auto;
-  scrollbar-width: none;
+  margin: 0 0 3px 0;
+  line-height: 1.25;
 }
 
-.dax-code::-webkit-scrollbar {
-  display: none;
-}
-
-.dax-detail {
-  font-size: 9.5px;
+.metric-back-desc {
+  font-size: 10px;
   color: var(--muted);
   line-height: 1.35;
-  margin: 0;
+  margin: 0 0 5px 0;
+  flex: 1;
+}
+
+.metric-back-takeaway {
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--blue);
+  padding: 5px 8px;
+  border-radius: 6px;
+}
+
+.card.yellow .metric-back-takeaway {
+  border-left-color: var(--yellow);
+}
+
+.metric-back-takeaway strong {
+  color: var(--blue);
+  font-weight: 750;
+}
+
+.card.yellow .metric-back-takeaway strong {
+  color: #a06e00;
+}
+
+/* ==========================================================================
+   Power BI Interactive Cross-Filter Banner
+   ========================================================================== */
+.cross-filter-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--soft);
+  border: 1px solid var(--blue);
+  border-left: 4px solid var(--blue);
+  border-radius: 11px;
+  padding: 9px 15px;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 83, 226, 0.08);
+}
+
+.cross-filter-banner.hidden {
+  display: none !important;
+}
+
+.cross-filter-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.cross-filter-icon {
+  display: flex;
+  align-items: center;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.cross-filter-text {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cross-filter-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cross-filter-tag {
+  background: var(--blue);
+  color: #ffffff;
+  padding: 2.5px 9px;
+  border-radius: 6px;
+  font-weight: 750;
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 6px rgba(0, 83, 226, 0.25);
+}
+
+.cross-filter-hint {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.clear-filter-btn {
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: 750;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.clear-filter-btn:hover {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 83, 226, 0.2);
 }
 
 /* ==========================================================================
@@ -801,10 +921,18 @@ button:disabled {
     font-size: 20px;
   }
 
-  .dax-code {
-    font-size: 9.5px;
-    padding: 5px 7px;
-    line-height: 1.35;
+  .metric-back-title {
+    font-size: 11px;
+  }
+
+  .metric-back-desc {
+    font-size: 9px;
+    line-height: 1.3;
+  }
+
+  .metric-back-takeaway {
+    font-size: 8.5px;
+    padding: 4px 6px;
   }
 
   /* Charts on Mobile */
@@ -904,8 +1032,8 @@ button:disabled {
   }
 
   .flip-card {
-    min-height: 140px;
-    height: 140px;
+    min-height: 150px;
+    height: 150px;
   }
 
   .flip-card-front .value {

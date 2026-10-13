@@ -73,6 +73,17 @@
       <div class="actions"><button id="themeToggle" class="btn secondary theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeIcon" class="theme-icon" aria-hidden="true">☾</span><span id="themeText">Dark mode</span></button><button id="demoBtn" class="btn secondary">Load Demo Data</button><label class="btn upload-label">↥ Upload CSV<input type="file" id="fileInput" accept=".csv,text/csv" /></label></div>
     </div>
     <div id="status" class="status" role="status">Upload a Walmart Sales CSV file to view your actual insights, or choose Load Demo Data for a preview.</div>
+    <div id="crossFilterBanner" class="cross-filter-banner hidden" role="status" aria-live="polite">
+      <div class="cross-filter-content">
+        <span class="cross-filter-icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        </span>
+        <span class="cross-filter-text">Active Cross-Filter:</span>
+        <span id="crossFilterTags" class="cross-filter-tags"></span>
+        <span class="cross-filter-hint">(Click chart element again or Reset to clear)</span>
+      </div>
+      <button id="clearCrossFilterBtn" type="button" class="clear-filter-btn" title="Reset all active cross-filters">Reset Filter ✕</button>
+    </div>
     <section class="filters" id="globalFilters" aria-label="Dashboard filters">
       <div class="filter" id="globalStoreFilter"><label for="store">Store</label><select id="store"><option value="all">All stores</option></select></div>
       <div class="filter"><label for="year">Year</label><select id="year"><option value="all">All years</option></select></div>
@@ -80,8 +91,8 @@
       <div class="filter"><label for="holiday">Holiday week</label><select id="holiday"><option value="all">All weeks</option><option value="1">Holiday only</option><option value="0">Non-holiday only</option></select></div>
     </section>
     <div id="page-overview" class="page-view">
-    <section class="metrics" aria-label="Key Performance Indicators with DAX flip cards">
-      <article class="card flip-card" tabindex="0" role="button" aria-label="Total Sales card. Tap or hover to view DAX formula.">
+    <section class="metrics" aria-label="Key Performance Indicators with 3D insight flip cards">
+      <article class="card flip-card" tabindex="0" role="button" aria-label="Total Sales card. Tap or hover to view metric insights.">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <div class="card-top-row">
@@ -90,23 +101,23 @@
             </div>
             <div class="value" id="totalSales">—</div>
             <div class="detail" id="salesDetail">Selected period</div>
-            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
           </div>
           <div class="flip-card-back">
-            <div class="dax-header">
-              <span>DAX Measure</span>
-              <span class="dax-badge">Power BI</span>
+            <div class="metric-back-header">
+              <span class="metric-back-badge">Enterprise Revenue</span>
+              <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
             </div>
-            <pre class="dax-code"><code>Total Sales = 
-CALCULATE(
-  SUM(Walmart[Weekly_Sales])
-)</code></pre>
-            <div class="dax-detail">Cumulative revenue across selected store-weeks.</div>
+            <h3 class="metric-back-title">Total Gross Sales</h3>
+            <p class="metric-back-desc">Cumulative revenue generated across all filtered stores and operating weeks.</p>
+            <div class="metric-back-takeaway">
+              <strong>Business Impact:</strong> Primary executive indicator for enterprise sales volume and growth targets.
+            </div>
           </div>
         </div>
       </article>
 
-      <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Average Weekly Store Sales card. Tap or hover to view DAX formula.">
+      <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Average Weekly Sales card. Tap or hover to view metric insights.">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <div class="card-top-row">
@@ -115,23 +126,23 @@ CALCULATE(
             </div>
             <div class="value" id="avgSales">—</div>
             <div class="detail">Average per store-week record</div>
-            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
           </div>
           <div class="flip-card-back">
-            <div class="dax-header">
-              <span>DAX Measure</span>
-              <span class="dax-badge">Power BI</span>
+            <div class="metric-back-header">
+              <span class="metric-back-badge">Store Benchmark</span>
+              <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
             </div>
-            <pre class="dax-code"><code>Avg Weekly Sales = 
-CALCULATE(
-  AVERAGE(Walmart[Weekly_Sales])
-)</code></pre>
-            <div class="dax-detail">Benchmark average store revenue per week.</div>
+            <h3 class="metric-back-title">Weekly Sales Velocity</h3>
+            <p class="metric-back-desc">Average revenue produced by an active store location in a single operational week.</p>
+            <div class="metric-back-takeaway">
+              <strong>Business Impact:</strong> Normalizes comparison across periods and networks of varying store counts.
+            </div>
           </div>
         </div>
       </article>
 
-      <article class="card flip-card" tabindex="0" role="button" aria-label="Top Performing Store card. Tap or hover to view DAX formula.">
+      <article class="card flip-card" tabindex="0" role="button" aria-label="Top Performing Store card. Tap or hover to view metric insights.">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <div class="card-top-row">
@@ -140,24 +151,23 @@ CALCULATE(
             </div>
             <div class="value" id="topStore">—</div>
             <div class="detail">Ranked by total sales</div>
-            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
           </div>
           <div class="flip-card-back">
-            <div class="dax-header">
-              <span>DAX Measure</span>
-              <span class="dax-badge">Power BI</span>
+            <div class="metric-back-header">
+              <span class="metric-back-badge">Fleet Leader</span>
+              <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
             </div>
-            <pre class="dax-code"><code>Top Store = 
-CALCULATE(
-  SELECTEDVALUE(Walmart[Store]),
-  TOPN(1, ALL(Walmart[Store]), [Total Sales], DESC)
-)</code></pre>
-            <div class="dax-detail">Identifies top ranking store by total revenue.</div>
+            <h3 class="metric-back-title">Flagship Location</h3>
+            <p class="metric-back-desc">Store unit logging the highest aggregate revenue in the selected timeframe.</p>
+            <div class="metric-back-takeaway">
+              <strong>Business Impact:</strong> Benchmark store for merchandising, inventory turnover, and staff productivity.
+            </div>
           </div>
         </div>
       </article>
 
-      <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Active Stores card. Tap or hover to view DAX formula.">
+      <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Active Stores card. Tap or hover to view metric insights.">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <div class="card-top-row">
@@ -166,16 +176,18 @@ CALCULATE(
             </div>
             <div class="value" id="storeCount">—</div>
             <div class="detail" id="weeksDetail">Stores in selected data</div>
-            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for DAX</span>
+            <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
           </div>
           <div class="flip-card-back">
-            <div class="dax-header">
-              <span>DAX Measure</span>
-              <span class="dax-badge">Power BI</span>
+            <div class="metric-back-header">
+              <span class="metric-back-badge">Network Scope</span>
+              <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
             </div>
-            <pre class="dax-code"><code>Active Stores = 
-DISTINCTCOUNT(Walmart[Store])</code></pre>
-            <div class="dax-detail">Count of unique store locations contributing data.</div>
+            <h3 class="metric-back-title">Retail Network Size</h3>
+            <p class="metric-back-desc">Count of distinct physical store units reporting sales in this selection.</p>
+            <div class="metric-back-takeaway">
+              <strong>Business Impact:</strong> Confirms sample representation and retail reach across regional markets.
+            </div>
           </div>
         </div>
       </article>
@@ -217,11 +229,106 @@ DISTINCTCOUNT(Walmart[Store])</code></pre>
     </div>
     <section id="page-stores" class="page-view hidden" hidden aria-label="Store details">
       <div class="page-toolbar"><div class="page-controls"><div class="control"><label for="focusStore">Choose a store</label><select id="focusStore"></select></div><div class="control"><label for="storePeriod">Trend period</label><select id="storePeriod"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option><option value="week">Weekly</option></select></div></div><p class="sub">Year, month and holiday filters apply. The store is selected here.</p></div>
-      <div class="metrics">
-        <article class="card"><div class="label">Store Sales</div><div class="value" id="detailTotal">—</div><div class="detail" id="detailRecords">Selected records</div></article>
-        <article class="card yellow"><div class="label">Average Weekly Sales</div><div class="value" id="detailAverage">—</div><div class="detail">Per store-week record</div></article>
-        <article class="card"><div class="label">Store Rank</div><div class="value" id="detailRank">—</div><div class="detail" id="detailRankNote">Among stores in the same period</div></article>
-        <article class="card yellow"><div class="label">Best Week</div><div class="value" id="detailPeak">—</div><div class="detail" id="detailPeakDate">Highest weekly sales</div></article>
+      <div class="metrics" aria-label="Store performance indicators with 3D insight flip cards">
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Store Sales card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Store Sales</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              </div>
+              <div class="value" id="detailTotal">—</div>
+              <div class="detail" id="detailRecords">Selected records</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Unit Revenue</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Total Unit Sales</h3>
+              <p class="metric-back-desc">Cumulative revenue generated by the selected store across the filtered period.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Evaluates overall financial throughput and annual target attainment for this store.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Average Weekly Sales card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Average Weekly Sales</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="value" id="detailAverage">—</div>
+              <div class="detail">Per store-week record</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Unit Run-Rate</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Weekly Store Pace</h3>
+              <p class="metric-back-desc">Typical weekly sales revenue delivered by this store across its operating weeks.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Smooths out weekly demand volatility to evaluate baseline store revenue velocity.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Store Rank card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Store Rank</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="value" id="detailRank">—</div>
+              <div class="detail" id="detailRankNote">Among stores in the same period</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Competitive Rank</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Peer Group Standing</h3>
+              <p class="metric-back-desc">Rank position of this store relative to all other active retail units in the network.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Highlights top-quartile leaders vs locations requiring targeted merchandise support.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Best Week card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Best Week</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="value" id="detailPeak">—</div>
+              <div class="detail" id="detailPeakDate">Highest weekly sales</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Peak Capacity</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">All-Time Peak Week</h3>
+              <p class="metric-back-desc">Single highest weekly sales volume achieved by this store in historical records.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Illustrates maximum store volume throughput during high-demand retail surges.
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
       <div class="page-charts">
         <article class="panel"><div class="panel-head"><div><h2>Store Sales Trend</h2><p class="sub">Total sales by selected period</p></div></div><div class="plot"><canvas id="detailTrendChart"></canvas></div></article>
@@ -286,22 +393,212 @@ DISTINCTCOUNT(Walmart[Store])</code></pre>
     </section>
     <section id="page-periods" class="page-view hidden" hidden aria-label="Period analysis">
       <div class="page-toolbar"><div class="control"><label for="periodGrain">Compare periods</label><select id="periodGrain"><option value="month">Monthly</option><option value="quarter">Quarterly</option><option value="year">Yearly</option></select></div><p class="sub">Changes compare with the immediately preceding calendar period. Missing periods show no change value.</p></div>
-      <div class="metrics">
-        <article class="card"><div class="label">Latest Period Sales</div><div class="value" id="periodLatest">—</div><div class="detail" id="periodLatestLabel">Selected period</div></article>
-        <article class="card yellow"><div class="label">Previous Period Sales</div><div class="value" id="periodPrevious">—</div><div class="detail" id="periodPreviousLabel">Previous calendar period</div></article>
-        <article class="card yellow"><div class="label">Sales Change</div><div class="value" id="periodChange">—</div><div class="detail" id="periodChangeValue">Compared with previous period</div></article>
-        <article class="card yellow"><div class="label">Periods in Selection</div><div class="value" id="periodCount">0</div><div class="detail">With available sales records</div></article>
+      <div class="metrics" aria-label="Period comparison indicators with 3D insight flip cards">
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Latest Period Sales card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Latest Period Sales</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="value" id="periodLatest">—</div>
+              <div class="detail" id="periodLatestLabel">Selected period</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Current Horizon</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Recent Period Volume</h3>
+              <p class="metric-back-desc">Gross sales booked in the most recent closed calendar interval under evaluation.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Provides executive visibility into ongoing sales run-rate and immediate momentum.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Previous Period Sales card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Previous Period Sales</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              </div>
+              <div class="value" id="periodPrevious">—</div>
+              <div class="detail" id="periodPreviousLabel">Previous calendar period</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Prior Benchmark</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Preceding Base Sales</h3>
+              <p class="metric-back-desc">Total sales logged during the immediately preceding period of identical duration.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Establishes sequential comparative baseline for periodic growth analysis.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Sales Change card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Sales Change</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="value" id="periodChange">—</div>
+              <div class="detail" id="periodChangeValue">Compared with previous period</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Growth Delta</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Period Growth Rate</h3>
+              <p class="metric-back-desc">Percentage and absolute dollar variance between the latest and prior period.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Key directional KPI signaling whether sales demand is expanding or contracting.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Periods in Selection card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Periods in Selection</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="value" id="periodCount">0</div>
+              <div class="detail">With available sales records</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Sample Scope</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Timeline Intervals</h3>
+              <p class="metric-back-desc">Count of distinct calendar intervals included in current trend calculation.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Confirms sample historical depth and prevents false growth signals from short windows.
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
       <article class="panel page-panel"><div class="panel-head"><div><h2>Sales by Period</h2><p class="sub">Totals reflect available records; partial periods may contain fewer weeks.</p></div></div><div class="plot"><canvas id="periodChart"></canvas></div></article>
       <article class="panel page-panel"><div class="panel-head"><div><h2>Period Comparison</h2><p class="sub">Sales, growth and coverage for every selected period</p></div></div><div id="periodTable" class="table-wrap"></div></article>
     </section>
     <section id="page-seasonality" class="page-view hidden" hidden aria-label="Seasonality and holidays">
       <p id="seasonNote" class="page-note">Compare average store-week sales to account for different numbers of records.</p>
-      <div class="metrics">
-        <article class="card yellow"><div class="label">Holiday Weekly Average</div><div class="value" id="seasonHoliday">—</div><div class="detail" id="seasonHolidayCount">Holiday records</div></article>
-        <article class="card"><div class="label">Regular Weekly Average</div><div class="value" id="seasonRegular">—</div><div class="detail" id="seasonRegularCount">Regular records</div></article>
-        <article class="card yellow"><div class="label">Holiday Difference</div><div class="value" id="seasonUplift">—</div><div class="detail">Relative to regular-week average</div></article>
-        <article class="card"><div class="label">Strongest Month</div><div class="value" id="seasonBest">—</div><div class="detail" id="seasonBestValue">By average store-week sales</div></article>
+      <div class="metrics" aria-label="Seasonality indicators with 3D insight flip cards">
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Holiday Weekly Average card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Holiday Weekly Average</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </div>
+              <div class="value" id="seasonHoliday">—</div>
+              <div class="detail" id="seasonHolidayCount">Holiday records</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Peak Surge</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Holiday Sales Velocity</h3>
+              <p class="metric-back-desc">Mean weekly sales achieved during officially recognized national retail promotional weeks.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Quantifies peak operational surge capacity needed for distribution logistics and staffing.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Regular Weekly Average card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Regular Weekly Average</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="value" id="seasonRegular">—</div>
+              <div class="detail" id="seasonRegularCount">Regular records</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Baseline Velocity</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Standard Week Velocity</h3>
+              <p class="metric-back-desc">Average weekly revenue generated across standard, non-holiday operational weeks.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Reflects steady-state customer footfall and staple item replenishment requirements.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Holiday Difference card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Holiday Difference</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="value" id="seasonUplift">—</div>
+              <div class="detail">Relative to regular-week average</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Event Elasticity</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Holiday Sales Lift</h3>
+              <p class="metric-back-desc">Relative percentage uplift in store sales produced by holiday promotional periods.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Primary parameter for promotional ROI modeling and holiday inventory pre-stocking.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Strongest Month card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Strongest Month</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="value" id="seasonBest">—</div>
+              <div class="detail" id="seasonBestValue">By average store-week sales</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Calendar Apex</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Peak Calendar Month</h3>
+              <p class="metric-back-desc">The specific calendar month recording the highest average weekly sales across years.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Typically December due to festive gift-buying; guides yearly marketing budget pacing.
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
       <div class="page-charts">
         <article class="panel"><div class="panel-head"><div><h2>Monthly Sales Pattern</h2><p class="sub">Average store-week sales by calendar month</p></div></div><div class="plot"><canvas id="seasonMonthlyChart"></canvas></div></article>
@@ -322,11 +619,106 @@ DISTINCTCOUNT(Walmart[Store])</code></pre>
         </div>
         <p class="sub">Analyze how macroeconomic variables relate to sales performance. Correlation describes association, not causation.</p>
       </div>
-      <div class="metrics">
-        <article class="card"><div class="label">Average Factor Value</div><div class="value" id="economicAverage">—</div><div class="detail" id="economicFactorName">Selected factor</div></article>
-        <article class="card yellow"><div class="label">Sales Correlation</div><div class="value" id="economicCorrelation">—</div><div class="detail">Pearson r, from −1 to +1</div></article>
-        <article class="card"><div class="label">Valid Records</div><div class="value" id="economicRecords">0</div><div class="detail">With a numeric factor value</div></article>
-        <article class="card yellow"><div class="label">Average Weekly Sales</div><div class="value" id="economicSales">—</div><div class="detail">For these valid records</div></article>
+      <div class="metrics" aria-label="Macroeconomic indicators with 3D insight flip cards">
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Average Factor Value card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Average Factor Value</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+              </div>
+              <div class="value" id="economicAverage">—</div>
+              <div class="detail" id="economicFactorName">Selected factor</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Macro Climate</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Mean Factor Level</h3>
+              <p class="metric-back-desc">Arithmetic mean of the chosen macroeconomic variable across filtered store-weeks.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Establishes the prevailing economic environment (fuel, CPI, temp, unemployment).
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Sales Correlation card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Sales Correlation</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><line x1="8.59" y1="8.59" x2="15.42" y2="15.41"/></svg>
+              </div>
+              <div class="value" id="economicCorrelation">—</div>
+              <div class="detail">Pearson r, from −1 to +1</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Elasticity Index</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Pearson Correlation</h3>
+              <p class="metric-back-desc">Statistical linear relationship between the economic factor and store sales volume.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Near 0 denotes sales resilience; ±0.5 indicates marked macro sensitivity.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card flip-card" tabindex="0" role="button" aria-label="Valid Records card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Valid Records</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="value" id="economicRecords">0</div>
+              <div class="detail">With a numeric factor value</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Data Integrity</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Sample Population</h3>
+              <p class="metric-back-desc">Total store-week records with valid, verified numeric values for the selected factor.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Guarantees analytical sample size is robust and free from missing-variable bias.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card yellow flip-card" tabindex="0" role="button" aria-label="Average Weekly Sales card. Tap or hover to view metric insights.">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-top-row">
+                <span class="label">Average Weekly Sales</span>
+                <svg class="card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="value" id="economicSales">—</div>
+              <div class="detail">For these valid records</div>
+              <span class="flip-hint"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-5.19"/></svg> Flip for insights</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="metric-back-header">
+                <span class="metric-back-badge">Cohort Revenue</span>
+                <span class="metric-back-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              </div>
+              <h3 class="metric-back-title">Cohort Weekly Sales</h3>
+              <p class="metric-back-desc">Average store revenue per week calculated specifically over the valid economic cohort.</p>
+              <div class="metric-back-takeaway">
+                <strong>Business Impact:</strong> Provides baseline dollar scale against which economic sensitivity is calibrated.
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
       <div class="page-charts">
         <article class="panel">
@@ -554,17 +946,188 @@ window.addEventListener('load', () => {
     const palette=chartPalette();Chart.defaults.color=palette.text;Chart.defaults.borderColor=palette.grid;
     if(charts[id])charts[id].destroy();
     charts[id]=new Chart($(id),{type,data,options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
-      plugins:{legend:{display:false},tooltip:{backgroundColor:palette.surface,titleColor:palette.ink,bodyColor:palette.ink,borderColor:palette.grid,borderWidth:1,callbacks:{label:context=>{const n=context.chart.options.indexAxis==='y'?context.parsed.x:context.parsed.y;return `${context.dataset.label||'Sales'}: ${money(n)}`}}}},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:palette.surface,
+          titleColor:palette.ink,
+          bodyColor:palette.ink,
+          borderColor:palette.grid,
+          borderWidth:1.5,
+          padding:10,
+          boxPadding:4,
+          cornerRadius:8,
+          titleFont:{size:12,weight:'700'},
+          bodyFont:{size:11,weight:'500'},
+          footerFont:{size:10,weight:'600',style:'italic'},
+          footerColor:palette.blue,
+          callbacks:{
+            label:context=>{
+              const n=context.chart.options.indexAxis==='y'?context.parsed.x:context.parsed.y;
+              return ` ${context.dataset.label||'Sales'}: ${money(n)} (${fullMoney(n)})`;
+            }
+          }
+        }
+      },
       scales:{x:{grid:{display:false},ticks:{color:palette.text,maxRotation:0,autoSkip:true,maxTicksLimit:10}},y:{grid:{color:palette.grid},ticks:{color:palette.text,callback:v=>money(v)}}},...options}});
   }
+
+  function updateCrossFilterBanner(){
+    const banner=$('crossFilterBanner');
+    if(!banner)return;
+    const tagsContainer=$('crossFilterTags');
+    const storeVal=$('store').value;
+    const yearVal=$('year').value;
+    const monthVal=$('month').value;
+    const holidayVal=$('holiday').value;
+
+    const active=[];
+    if(storeVal!=='all')active.push({label:'Store '+storeVal,id:'store'});
+    if(yearVal!=='all')active.push({label:'Year '+yearVal,id:'year'});
+    if(monthVal!=='all')active.push({label:MONTHS[Number(monthVal)-1],id:'month'});
+    if(holidayVal!=='all')active.push({label:holidayVal==='1'?'Holiday Weeks':'Regular Weeks',id:'holiday'});
+
+    if(active.length){
+      banner.classList.remove('hidden');
+      if(tagsContainer){
+        tagsContainer.replaceChildren(...active.map(item=>{
+          const tag=document.createElement('span');
+          tag.className='cross-filter-tag';
+          tag.textContent=item.label;
+          return tag;
+        }));
+      }
+    } else {
+      banner.classList.add('hidden');
+      if(tagsContainer)tagsContainer.replaceChildren();
+    }
+  }
+
+  function clearAllCrossFilters(){
+    $('store').value='all';
+    $('year').value='all';
+    $('month').value='all';
+    $('holiday').value='all';
+    updateCrossFilterBanner();
+    render();
+  }
+
+  function toggleCrossFilter(filterId,val){
+    const el=$(filterId);
+    if(!el)return;
+    if(el.value===String(val)){
+      el.value='all';
+    } else {
+      el.value=String(val);
+    }
+    updateCrossFilterBanner();
+    render();
+  }
+
+  function handleTrendClick(key,period){
+    if(period==='year'){
+      toggleCrossFilter('year',key);
+    } else if(period==='month'){
+      const parts=key.split('-');
+      const y=parts[0], m=String(Number(parts[1]));
+      if($('year').value===y && $('month').value===m){
+        $('year').value='all';
+        $('month').value='all';
+      } else {
+        $('year').value=y;
+        $('month').value=m;
+      }
+      updateCrossFilterBanner();
+      render();
+    } else if(period==='quarter'){
+      const parts=key.split('-Q');
+      toggleCrossFilter('year',parts[0]);
+    } else if(period==='week'){
+      const dt=new Date(key);
+      const y=String(dt.getUTCFullYear()), m=String(dt.getUTCMonth()+1);
+      if($('year').value===y && $('month').value===m){
+        $('year').value='all';
+        $('month').value='all';
+      } else {
+        $('year').value=y;
+        $('month').value=m;
+      }
+      updateCrossFilterBanner();
+      render();
+    }
+  }
+
   function renderOverview(){const palette=chartPalette(),BLUE=palette.blue;const rows=filtered(), storeGroup=group(rows,r=>r.Store), distinctWeeks=new Set(rows.map(r=>r.date.toISOString().slice(0,10))).size;
     $('totalSales').textContent=rows.length?money(sum(rows.map(r=>r.Weekly_Sales))):'—';$('avgSales').textContent=rows.length?money(avg(rows.map(r=>r.Weekly_Sales))):'—';$('storeCount').textContent=number(storeGroup.size);$('weeksDetail').textContent=`${distinctWeeks} distinct weeks selected`;
     const ranking=[...storeGroup].map(([s,a])=>({store:s,total:sum(a.map(r=>r.Weekly_Sales))})).sort((a,b)=>b.total-a.total);
     $('topStore').textContent=ranking.length?'Store '+ranking[0].store:'—';$('salesDetail').textContent=`${number(rows.length)} store-week records`;
     const period=$('metric').value;
     const buckets=group(rows,r=>periodKey(r.date,period));const timeline=[...buckets].sort(([a],[b])=>a.localeCompare(b));
-    draw('trendChart','line',{labels:timeline.map(([k])=>k),datasets:[{label:'Sales',data:timeline.map(([,a])=>sum(a.map(r=>r.Weekly_Sales))),borderColor:BLUE,backgroundColor:palette.fill,fill:true,tension:.26,borderWidth:3,pointRadius:timeline.length>35?0:2}]});
-    draw('storeChart','bar',{labels:ranking.slice(0,10).map(r=>'Store '+r.store),datasets:[{label:'Sales',data:ranking.slice(0,10).map(r=>r.total),backgroundColor:BLUE,borderRadius:5}]},{indexAxis:'y',scales:{x:{grid:{color:palette.grid},ticks:{callback:v=>money(v)}},y:{grid:{display:false}}}});
+    
+    draw('trendChart','line',{
+      labels:timeline.map(([k])=>k),
+      datasets:[{
+        label:'Sales',
+        data:timeline.map(([,a])=>sum(a.map(r=>r.Weekly_Sales))),
+        borderColor:BLUE,
+        backgroundColor:palette.fill,
+        fill:true,
+        tension:.26,
+        borderWidth:3,
+        pointRadius:timeline.length>35?3:5,
+        pointHoverRadius:8,
+        pointBackgroundColor:BLUE,
+        pointHoverBackgroundColor:YELLOW
+      }]
+    },{
+      onClick:(e, elements)=>{
+        if(!elements.length)return;
+        const idx=elements[0].index;
+        handleTrendClick(timeline[idx][0], period);
+      },
+      onHover:(e, elements)=>{
+        e.native.target.style.cursor=elements.length?'pointer':'default';
+      },
+      plugins:{
+        tooltip:{
+          callbacks:{
+            label:c=>` Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer:()=>'⚡ Click data point to filter by period'
+          }
+        }
+      }
+    });
+
+    draw('storeChart','bar',{
+      labels:ranking.slice(0,10).map(r=>'Store '+r.store),
+      datasets:[{
+        label:'Sales',
+        data:ranking.slice(0,10).map(r=>r.total),
+        backgroundColor:ranking.slice(0,10).map(r=>$('store').value===r.store?YELLOW:BLUE),
+        borderRadius:5
+      }]
+    },{
+      indexAxis:'y',
+      onClick:(e, elements)=>{
+        if(!elements.length)return;
+        const idx=elements[0].index;
+        const targetStore=ranking.slice(0,10)[idx].store;
+        toggleCrossFilter('store', targetStore);
+      },
+      onHover:(e, elements)=>{
+        e.native.target.style.cursor=elements.length?'pointer':'default';
+      },
+      plugins:{
+        tooltip:{
+          callbacks:{
+            label:c=>` Total Sales: ${money(c.parsed.x)} (${fullMoney(c.parsed.x)})`,
+            footer:()=>'⚡ Click bar to filter dashboard by this store'
+          }
+        }
+      },
+      scales:{x:{grid:{color:palette.grid},ticks:{callback:v=>money(v)}},y:{grid:{display:false}}}
+    });
+
     const holidays=rows.filter(r=>r.Holiday_Flag===1),regular=rows.filter(r=>r.Holiday_Flag===0);
     const avgHol=holidays.length?avg(holidays.map(r=>r.Weekly_Sales)):0;
     const avgReg=regular.length?avg(regular.map(r=>r.Weekly_Sales)):0;
@@ -588,12 +1151,23 @@ window.addEventListener('load', () => {
       datasets:[{
         label:isAvg?'Average sales':'Total sales',
         data:holidayData,
-        backgroundColor:[BLUE,YELLOW],
+        backgroundColor:[
+          $('holiday').value==='0'?YELLOW:BLUE,
+          $('holiday').value==='1'?YELLOW:'#ffaa00'
+        ],
         borderColor:palette.surface,
         borderWidth:2.5,
-        hoverOffset:8
+        hoverOffset:10
       }]
     },{
+      onClick:(e, elements)=>{
+        if(!elements.length)return;
+        const idx=elements[0].index;
+        toggleCrossFilter('holiday', idx===1?'1':'0');
+      },
+      onHover:(e, elements)=>{
+        e.native.target.style.cursor=elements.length?'pointer':'default';
+      },
       scales:{},
       cutout:'68%',
       plugins:{
@@ -628,20 +1202,56 @@ window.addEventListener('load', () => {
           titleColor:palette.ink,
           bodyColor:palette.ink,
           borderColor:palette.grid,
-          borderWidth:1,
+          borderWidth:1.5,
+          padding:10,
+          cornerRadius:8,
+          footerFont:{size:10,weight:'600',style:'italic'},
+          footerColor:palette.blue,
           callbacks:{
             label:context=>{
               const val=context.parsed;
               const total=context.dataset.data.reduce((a,b)=>a+(b||0),0);
               const pctVal=total>0?((val/total)*100).toFixed(1):'0';
-              return ` ${context.label}: ${money(val)} (${pctVal}%)`;
-            }
+              return ` ${context.label}: ${money(val)} (${fullMoney(val)} · ${pctVal}%)`;
+            },
+            footer:()=>'⚡ Click slice to filter by holiday/regular weeks'
           }
         }
       }
     });
 
-    const months=group(rows,r=>r.date.getUTCMonth());draw('seasonChart','bar',{labels:MONTHS,datasets:[{label:'Average sales',data:MONTHS.map((_,i)=>months.has(i)?avg(months.get(i).map(r=>r.Weekly_Sales)):null),backgroundColor:MONTHS.map((_,i)=>i===11?YELLOW:BLUE),borderRadius:4}]});
+    const months=group(rows,r=>r.date.getUTCMonth());
+    const selectedMonth = $('month').value === 'all' ? null : Number($('month').value) - 1;
+    draw('seasonChart','bar',{
+      labels:MONTHS,
+      datasets:[{
+        label:'Average sales',
+        data:MONTHS.map((_,i)=>months.has(i)?avg(months.get(i).map(r=>r.Weekly_Sales)):null),
+        backgroundColor:MONTHS.map((_,i)=>{
+          if(selectedMonth !== null) return i === selectedMonth ? YELLOW : palette.grid;
+          return i===11?YELLOW:BLUE;
+        }),
+        borderRadius:4
+      }]
+    },{
+      onClick:(e, elements)=>{
+        if(!elements.length)return;
+        const idx=elements[0].index;
+        toggleCrossFilter('month', String(idx+1));
+      },
+      onHover:(e, elements)=>{
+        e.native.target.style.cursor=elements.length?'pointer':'default';
+      },
+      plugins:{
+        tooltip:{
+          callbacks:{
+            label:c=>` Avg Weekly Sales: ${money(c.parsed.y)} (${fullMoney(c.parsed.y)})`,
+            footer:()=>'⚡ Click month bar to filter dashboard'
+          }
+        }
+      }
+    });
+
     renderTree(rows);
     const cards=[];if(ranking.length)cards.push(['Top Performing Store',`Store ${ranking[0].store} leads with ${money(ranking[0].total)} in total sales for the selected filters.`]);
     if(holidays.length&&regular.length){const a=avg(holidays.map(r=>r.Weekly_Sales)),b=avg(regular.map(r=>r.Weekly_Sales)),p=b?(a/b-1)*100:null;cards.push(['Holiday Sales Uplift',p===null?'Cannot calculate change when regular-week average is zero.':`Holiday weeks averaged ${money(a)} vs ${money(b)} for regular weeks (${p>=0?'+':''}${p.toFixed(1)}%).`]);}else cards.push(['Holiday Comparison','Select a period with both holiday and regular weeks to compare average sales.']);
@@ -650,7 +1260,21 @@ window.addEventListener('load', () => {
     $('insights').replaceChildren(...cards.map(([title,desc])=>{const div=document.createElement('div');div.className='insight';const strong=document.createElement('strong');strong.textContent=title;const p=document.createElement('p');p.textContent=desc;div.append(strong,p);return div}));
   }
   function render(){if(pages)pages.render();else renderOverview()}
-  pages=window.createSalesPages({$,money,number,avg,sum,group,fullMoney,periodKey,MONTHS,draw,chartPalette,getRows:filtered,getAllRows:()=>allRows,renderOverview});
+  function initFlipCards(){
+    document.querySelectorAll('.flip-card').forEach(card=>{
+      card.onclick=e=>{
+        if(e.target.closest('button,select,input,a'))return;
+        card.classList.toggle('is-flipped');
+      };
+      card.onkeydown=e=>{
+        if(e.key==='Enter'||e.key===' '){
+          e.preventDefault();
+          card.classList.toggle('is-flipped');
+        }
+      };
+    });
+  }
+  pages=window.createSalesPages({$,money,number,avg,sum,group,fullMoney,periodKey,MONTHS,draw,chartPalette,getRows:filtered,getAllRows:()=>allRows,renderOverview,updateCrossFilterBanner,toggleCrossFilter,handleTrendClick,initFlipCards});
   pages.init();
   syncTheme();renderTree([]);
   $('themeToggle').addEventListener('click',()=>{
@@ -659,22 +1283,20 @@ window.addEventListener('load', () => {
     syncTheme();if(window.Chart&&Object.keys(charts).length)render();
   });
   $('resetTree').addEventListener('click',()=>{treeSteps=[{dimension:'year',selected:null}];$('treeScroll').scrollLeft=0;renderTree(filtered(),'tree-split-0')});
+  const clearBtn=$('clearCrossFilterBtn');
+  if(clearBtn)clearBtn.addEventListener('click',clearAllCrossFilters);
   window.addEventListener('resize',scheduleTreeLines);
   if(window.ResizeObserver)new ResizeObserver(scheduleTreeLines).observe($('treeSurface'));
-  ['store','year','month','holiday','metric','holidayMetricSelect'].forEach(id=>{const el=$(id);if(el)el.addEventListener('change',render)});
-
-  document.querySelectorAll('.flip-card').forEach(card=>{
-    card.addEventListener('click',e=>{
-      if(e.target.closest('button,select,input,a'))return;
-      card.classList.toggle('is-flipped');
-    });
-    card.addEventListener('keydown',e=>{
-      if(e.key==='Enter'||e.key===' '){
-        e.preventDefault();
-        card.classList.toggle('is-flipped');
-      }
-    });
+  ['store','year','month','holiday'].forEach(id=>{
+    const el=$(id);
+    if(el)el.addEventListener('change',()=>{updateCrossFilterBanner();render();});
   });
+  ['metric','holidayMetricSelect'].forEach(id=>{
+    const el=$(id);
+    if(el)el.addEventListener('change',render);
+  });
+
+  initFlipCards();
   $('fileInput').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;if(!window.Papa||!window.Chart){setStatus('Chart.js / CSV library could not load. Check internet access.',true);return;}
     Papa.parse(file,{header:true,skipEmptyLines:true,complete:results=>{try{const rows=normalize(results.data);initData(rows)}catch(err){setStatus(err.message,true)}},error:err=>setStatus('Could not read CSV: '+err.message,true)});e.target.value='';});
   $('demoBtn').addEventListener('click',()=>{const data=[];let seed=42;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};for(let week=0;week<112;week++){const date=new Date(Date.UTC(2022,0,7+week*7)),m=date.getUTCMonth();for(let store=1;store<=20;store++){const holiday=[10,11].includes(m)&&[1,3].includes(Math.floor(date.getUTCDate()/7));const base=650000+store*21500;const seasonal=m===11?1.3:m===10?1.17:m===6?1.07:1;data.push({Store:String(store),date,Weekly_Sales:Math.round(base*seasonal*(holiday?1.15:1)*(.86+rand()*.28)),Holiday_Flag:holiday?1:0,Temperature:30+60*rand(),Fuel_Price:2.3+1.4*rand(),CPI:210+15*rand(),Unemployment:4+4*rand()});}}initData(data,true);});
