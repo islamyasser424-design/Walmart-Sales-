@@ -1,6 +1,7 @@
 # 🛒 Walmart Retail Sales Intelligence — Enterprise Operations & Econometric Forecasting Dashboard
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Interactive_Dashboard-0071CE?style=for-the-badge&logo=googlechrome&logoColor=white)](https://islamyasser424-design.github.io/Walmart-Sales-/)
+[![Domain](https://img.shields.io/badge/Domain-Retail_Sales_%26_Econometrics-0053E2?style=for-the-badge)]()
 [![Google Sheets](https://img.shields.io/badge/Google_Sheets-Data_Pipeline-34A853?style=for-the-badge&logo=googlesheets&logoColor=white)](https://www.google.com/sheets/about/)
 [![Google Apps Script](https://img.shields.io/badge/Google_Apps_Script-Automated_ETL-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://developers.google.com/apps-script)
 [![Interactive Web BI](https://img.shields.io/badge/Architecture-Client--Side_Web_BI-FFC220?style=for-the-badge&logoColor=black)]()
